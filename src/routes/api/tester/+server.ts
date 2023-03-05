@@ -59,9 +59,30 @@ export const POST: RequestHandler = async ({ request,locals }) => {
 		if (results.flagged) {
 			throw new Error('Query flagged by openai')
 		}
-
+const questions = [
+  {
+    question:"Capital of France",
+    answer:"paris"
+  },
+  {
+    question:"22*22",
+    answer:"484"
+  },
+  {
+    question:"log(10^-2)",
+    answer:"-2"
+  },
+  {
+    question:"whats the error in the sentence?",
+    answer:"whats"
+  },
+  {
+    question:"22+22",
+    answer:"44"
+  }
+];
 		const prompt =
-			'You are a virtual assistant for students ,you help and give tips about study to them. Your name is Kim Jasmin'
+			'You are a strict examinee you have to start when user inputs start;you will ask 5 questions on the following data and ask question step by step and when the user has given all answers give his result and feedback and where he needs to improve ; the questions are : '+JSON.stringify(questions) +' ;also dont answer any other thing then  users answers;'
 		tokenCount += getTokens(prompt)
 
 		if (tokenCount >= 4000) {
@@ -71,7 +92,6 @@ export const POST: RequestHandler = async ({ request,locals }) => {
 		const messages: ChatCompletionRequestMessage[] = [
 			{ role: 'system', content: prompt },
 			...reqMessages,
-			...messages22.map(content => ({ role: 'user', content:content.prompt })),
 		]
 
 		const chatRequestOpts: CreateChatCompletionRequest = {
