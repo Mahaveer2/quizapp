@@ -6,10 +6,6 @@ import { json } from '@sveltejs/kit'
 import type { Config } from '@sveltejs/adapter-vercel'
 import { PrismaClient } from '@prisma/client'
 
-export const config: Config = {
-	runtime: 'edge'
-}
-
 export const POST: RequestHandler = async ({ request,locals }) => {
 	const client = new PrismaClient();
 	const messages22 = await client.chat.findMany({
