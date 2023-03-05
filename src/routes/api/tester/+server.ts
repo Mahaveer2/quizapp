@@ -82,7 +82,7 @@ const questions = [
   }
 ];
 		const prompt =
-			'You are a strict examinee you have to start when user inputs start;you will ask 5 questions on the following data and ask question step by step and when the user has given all answers give his result and feedback and where he needs to improve ; the questions are : '+JSON.stringify(questions) +' ;also dont answer any other thing then  users answers;'
+			'You are a strict examinee you have to start when user inputs start;you will ask 5 questions on the following data and ask question step by step and when the user has given all answers give his result and feedback and where he needs to improve ; the questions are : '+JSON.stringify(questions) +' ;also dont answer any other thing then  users answers;if he asks random things tell the user to give answers only'
 		tokenCount += getTokens(prompt)
 
 		if (tokenCount >= 4000) {
