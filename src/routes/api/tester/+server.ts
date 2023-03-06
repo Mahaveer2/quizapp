@@ -9,11 +9,6 @@ import { PrismaClient } from '@prisma/client'
 
 export const POST: RequestHandler = async ({ request,locals }) => {
 	const client = new PrismaClient();
-	const messages22 = await client.chat.findMany({
-		where:{
-			studentId:locals.user.userId,
-		}
-	});
 
 	try {
 		if (!OPENAI_KEY) {
@@ -25,6 +20,8 @@ export const POST: RequestHandler = async ({ request,locals }) => {
 		if (!requestData) {
 			throw new Error('No request data')
 		}
+
+		const shareLink = requestData.shareLink;
 
 		const reqMessages: ChatCompletionRequestMessage[] = requestData.messages
 
@@ -56,30 +53,18 @@ export const POST: RequestHandler = async ({ request,locals }) => {
 		if (results.flagged) {
 			throw new Error('Query flagged by openai')
 		}
-const questions = [
-  {
-    question:"Capital of France",
-    answer:"paris"
-  },
-  {
-    question:"22*22",
-    answer:"484"
-  },
-  {
-    question:"log(10^-2)",
-    answer:"-2"
-  },
-  {
-    question:"whats the error in the sentence?",
-    answer:"whats"
-  },
-  {
-    question:"22+22",
-    answer:"44"
-  }
-];
+		const test_data = await client.test.findUnique({
+			where:{
+				shareLink:shareLink
+			},
+			include:{
+				questions:true
+			}
+		})
+
+		
 		const prompt =
-			'You are a strict examinee you have to start when user inputs start;you will ask 5 questions on the following data and ask question step by step and when the user has given all answers give his result and feedback and where he needs to improve ; the questions are : '+JSON.stringify(questions) +' ;also dont answer any other thing then  users answers;if he asks random things tell the user to give answers only'
+			'You are a strict examinee you have to start when user inputs start;you will ask 5 questions on the following data and ask question step by step and when the user has given all answers give his result and feedback and where he needs to improve ; the test data is : '+JSON.stringify(test_data) +' ;also dont answer any other thing then  users answers;if he asks random things tell the user to give answers only'
 		tokenCount += getTokens(prompt)
 
 		if (tokenCount >= 4000) {

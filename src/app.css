@@ -11,3 +11,15 @@ body {
 body {
 	@apply text-black;
 }
+
+.container{
+	@apply w-[80%] mx-auto pt-10;
+}
+
+.btn-p{
+	@apply p-3 flex justify-center items-center bg-black text-white;
+}
+
+input{
+	@apply outline-none focus:ring-1 focus:ring-black;
+}

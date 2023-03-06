@@ -13,40 +13,41 @@ enum Power {
 }
 
 model Admin {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  power     Power
+  id            Int      @id @default(autoincrement())
+  email         String   @unique
+  password      String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  power         Power
+  userAuthToken String   @unique @default("")
 }
 
 model Test {
   id        Int        @id @default(autoincrement())
   name      String
-  questions Question[]
+  questions Question[] 
   scores    Score[]
+  shareLink String     @unique
 }
 
 model Question {
-  id            Int      @id @default(autoincrement())
+  id            Int    @id @default(autoincrement())
   questionText  String
-  answerOptions String[]
   correctAnswer String
-  test          Test     @relation(fields: [testId], references: [id])
+  test          Test   @relation(fields: [testId], references: [id],onDelete: Cascade)
   testId        Int
 }
 
 model Student {
-  id        Int     @id @default(autoincrement())
-  email     String  @unique
-  firstName String
-  lastName  String
-  scores    Score[]
-  Chat      Chat?   @relation(fields: [chatId], references: [id])
-  chatId    Int?
-  password  String
-  userAuthToken String @unique @default("")
+  id            Int     @id @default(autoincrement())
+  email         String  @unique
+  firstName     String
+  lastName      String
+  scores        Score[]
+  Chat          Chat?   @relation(fields: [chatId], references: [id])
+  chatId        Int?
+  password      String
+  userAuthToken String  @unique @default("")
 }
 
 model Score {
@@ -63,5 +64,5 @@ model Chat {
   student   Student[]
   studentId Int
   prompt    String
-  returnMsg    String
+  returnMsg String
 }

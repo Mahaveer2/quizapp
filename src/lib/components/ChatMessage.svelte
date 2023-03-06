@@ -14,7 +14,7 @@
 		</div>
 	</div>
 	
-	<div class="chat-bubble {type === 'user' ? 'chat-bubble-primary' : 'chat-bubble-secondary'}">
+	<div class="chat-bubble {type === 'user' ? 'chat-bubble bg-white text-black ' : 'chat-bubble'}">
 		{message}
 	</div>
 </div>

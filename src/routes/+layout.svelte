@@ -1,7 +1,15 @@
 <script>
 	import '../app.css'
-	import { page } from "$app/stores";
+	import { page } from '$app/stores'
+	import Navbar from '$lib/components/Navbar.svelte'
+
+	let isAdmin = false
+	if ($page.url.pathname.includes('admin')) {
+		isAdmin = true
+	}
 </script>
-<div class="flex flex-col items-center max-w-2xl mx-auto">
-	<slot />
-</div>
+
+{#if !isAdmin}
+	<Navbar />
+{/if}
+<slot />

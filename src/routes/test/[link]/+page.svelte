@@ -1,6 +1,7 @@
 <script lang="ts">
+  export let data;
 	import ChatMessage from '$lib/components/ChatMessage.svelte'
-	import { page } from '$app/stores'
+  import { page } from '$app/stores';
 	import type { ChatCompletionRequestMessage } from 'openai'
 	import { SSE } from 'sse.js'
 	import { onMount } from 'svelte'
@@ -14,52 +15,29 @@
 	function scrollToBottom() {
 		setTimeout(function () {
 			scrollToDiv.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' })
-			scrollToDiv.scrollTop = scrollToDiv.scrollHeight
+			scrollToDiv.scrollTop = scrollToDiv.scrollHeight;
+
 		}, 100)
 	}
 
-	const getMessages = async () => {
-		const form = new FormData()
-		form.append('studentId', $page.data.user.userId)
-		const req = await fetch('/api/chat/get', {
-			method: 'POST',
-			body: form
-		})
-
-		let json = await req.json()
-		const data = json.data.map((data) =>
-			[
-				{ role: 'user', content: data.prompt },
-				{ role: 'assistant', content: data.returnMsg }
-			].map(({ role, content }) => ({ role, content }))
-		)
-
-		const map2 = [].concat(...data)
-
-		chatMessages = [...chatMessages, ...map2]
-		return json
-	}
-
-	const handle = async (prompt: string, answer: string) => {
-		let form = new FormData()
-		form.append('prompt', prompt)
-		form.append('answer', answer)
-		form.append('id', $page.data.user.userId)
-		let res = await fetch('/api/chat/add', {
-			method: 'POST',
-			body: form
-		})
-	}
+  // onMount(() => {
+  //   const data = new FormData();
+  //   data.append('shareLink',);
+  //   fetch("/api/tester",{
+  //     method:"POST",
+  //     body:data
+  //   })
+  // })
 
 	const handleSubmit = async () => {
 		loading = true
 		chatMessages = [...chatMessages, { role: 'user', content: query }]
 
-		const eventSource = new SSE('/api/chat', {
+		const eventSource = new SSE('/api/tester', {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			payload: JSON.stringify({ messages: chatMessages })
+			payload: JSON.stringify({ messages: chatMessages ,shareLink:$page.params.link})
 		})
 
 		eventSource.addEventListener('error', handleError)
@@ -70,7 +48,6 @@
 				loading = false
 				if (e.data === '[DONE]') {
 					chatMessages = [...chatMessages, { role: 'assistant', content: answer }]
-					let q = await handle(query, answer)
 					answer = ''
 					query = ''
 					return
@@ -100,17 +77,17 @@
 
 	onMount(async () => {
 		if ($page.data.user) {
-			getMessages()
+			
 		}
-		scrollToBottom()
+		scrollToBottom();
 	})
 </script>
 
 {#if $page.data.user}
-	<div class="flex flex-col pt-4 w-full items-center absolute top-[45px]">
-		<div class="h-[80vh] w-full bg-black  p-4 overflow-y-auto flex flex-col gap-4">
+<div class="flex flex-col pt-4 w-full items-center absolute top-[45px]">
+		<div class="h-[80vh] w-full bg-black p-4 overflow-y-auto flex flex-col gap-4">
 			<div class="flex flex-col gap-2">
-				<ChatMessage type="assistant" message="Hello, ask me anything you want!" />
+				<ChatMessage type="assistant" message="Type start to continue start" />
 				{#each chatMessages as message}
 					<ChatMessage type={message.role} message={message.content} />
 				{/each}
@@ -123,17 +100,18 @@
 			</div>
 			<div class="" bind:this={scrollToDiv} />
 		</div>
-		<form class="flex w-full  gap-4 bg-black p-4" on:submit|preventDefault={() => handleSubmit()}>
+		<form
+			class="flex w-full gap-4 bg-black p-4"
+			on:submit|preventDefault={() => handleSubmit()}
+		>
 			<input type="text" class="input input-bordered w-full" bind:value={query} />
 			<button type="submit" class="btn btn-p"> Send </button>
 		</form>
+		
 	</div>
 {:else}
-	<div class="flex justify-center items-center flex-col mt-14">
-		<a href="/login" class="mt-[100px] p-3 flex justify-center items-center bg-black text-white"
-			>Login to Continue</a
-		>
-		
-		<p class="mt-4">If you are the admin type <br><code>/admin/login</code><br> in the url</p>
-	</div>
+	<a href="/login" class="mt-[100px] p-3 flex justify-center items-center bg-black text-white"
+		>Login to Continue</a
+	>
+	<p>This is just a prototype of your requirements.</p>
 {/if}

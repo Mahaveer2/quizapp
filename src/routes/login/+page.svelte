@@ -1,8 +1,8 @@
 <script>
     export let form;
 </script>
-
-<form method="POST" action="?/login" class="flex flex-col gap-5 mt-[100px]">
+<div class="flex justify-center items-center flex-col mt-14">
+<form method="POST" action="?/login" class="flex flex-col gap-5 mt-[100px] w-[70%]">
   Sign up below with demo email
   Email:<strong>test@gmail.com</strong>
   Password:<strong>test</strong>
@@ -14,6 +14,7 @@
   {/if}
 
   {#if form?.credentials}
-    <p class="error">You have entered the wrong credentials.</p>
+    <p class="error text-red-600">You have entered the wrong credentials.</p>
   {/if}
 </form>
+</div>
