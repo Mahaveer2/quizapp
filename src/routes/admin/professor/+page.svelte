@@ -60,6 +60,15 @@
       body:JSON.stringify({id:id})
     })
     let res = await req.json();
+    if(res.status==200){
+      showMessage({
+        type:"Success",
+        _message:"Deleted Professor succesfull!"
+      })
+    }
+    professors = professors.filter(item => item.id !== id);
+    professors = professors;
+
     load.set(false);
   }
 
