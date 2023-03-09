@@ -1,19 +1,21 @@
 <script>
-	import NavLink from "./NavLink.svelte"
-
+	import NavLink from './NavLink.svelte'
+	import { page } from '$app/stores'
 </script>
+
 <nav class="flex justify-center items-center border-b h-[60px]">
-  <div class="w-[80%] flex justify-between items-center">
-    <a href="/"><h2 class="text-2xl text-black ">Kim</h2></a>
-    <div class="flex justify-between w-[300px]">
-      <NavLink
-      title="Home"
-      href='/'
-      />
-      <NavLink
-      title="Test"
-      href='/test'
-      />
-    </div>
-  </div>
+	<div class="w-[80%] flex justify-between items-center">
+		<a href="/"><h2 class="text-2xl text-black ">Kim</h2></a>
+		<div class="flex justify-between w-[300px]">
+			<NavLink title="Home" href="/" />
+			{#if $page.data.user}
+				<NavLink title="Test" href="/test" />
+			{:else}
+				<NavLink title="Login" href="/login" />
+			{/if}
+			{#if $page.data.admin}
+				<NavLink title="Admin Panel" href="/admin" />
+			{/if}
+		</div>
+	</div>
 </nav>

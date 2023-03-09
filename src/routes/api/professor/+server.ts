@@ -63,3 +63,27 @@ export async function DELETE({ request }: RequestEvent) {
 		return json(e)
 	}
 }
+
+
+export async function PATCH({request}:RequestEvent){
+	interface Professor{
+		email:string;
+		name:string;
+	}
+	try{
+		const prof:Professor = await request.json();
+
+		await client.admin.update({
+			where:{email:prof.email},
+			data:{...prof}
+		})
+
+		return json({
+			status:200,
+			message:"Updated professor succesfully!"
+		})
+	}catch(e){
+		console.log(e);
+		return json(e);
+	}
+}

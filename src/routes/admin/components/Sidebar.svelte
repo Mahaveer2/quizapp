@@ -19,6 +19,7 @@
 			<SideLink title="Create Test" icon="fa fa-plus" href="/admin/test/create" />
 		</DropDown>
 		<SideLink title="Professors" icon="fa fa-plus" href="/admin/professor" />
+		<SideLink title="Settings" icon="fa fa-gear" href="/admin/settings" />
 	</div>
 	<div class="mt-auto">
 		<form action="/logout" method="POST">

@@ -129,11 +129,17 @@
 		</form>
 	</div>
 {:else}
-	<div class="flex justify-center items-center flex-col mt-14">
-		<a href="/login" class="mt-[100px] p-3 flex justify-center items-center bg-black text-white"
-			>Login to Continue</a
-		>
-		
-		<p class="mt-4">If you are the admin type <br><code>/admin/login</code><br> in the url</p>
+	<div class="flex justify-center items-center flex-col">
+		<div class="w-full  h-[calc(100vh-60px)] relative">
+			<div class="content absolute top-[20%] pl-[8vw] left-[0] flex flex-col w-full justify-start gap-10">
+				<h1 class="text-black text-6xl font-semibold">Welcome to ProfBot </h1>
+				<p class="text-black max-w-[800px]">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi quidem mollitia hic? Quis, est quibusdam. Tenetur quaerat consequatur odit veniam provident dolorum quae nesciunt unde cum nobis voluptatem, corporis quia.</p>
+				<a href="/login" class="btn-p w-[200px]">
+
+					Get Started
+					</a>
+			</div>
+			
+		</div>
 	</div>
 {/if}
