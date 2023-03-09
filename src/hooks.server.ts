@@ -15,13 +15,13 @@ export const handle: Handle = async ({ event, resolve }) => {
   if (admin_sess) {
     const admin = await client.admin.findUnique({
       where:{userAuthToken:admin_sess},
-      select:{email:true,power:true}
+      select:{email:true,name:true}
     })
     
     if(admin){
       event.locals.admin = {
         email: admin.email,
-        power:admin.power,
+        name:admin.name,
       }
     }
   }

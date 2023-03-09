@@ -15,10 +15,10 @@
 	/>
 	<button class="p-5 bg-black text-white">Login</button>
 	{#if form?.invalid}
-		<p class="error">Username and password is required.</p>
+	<p class="error text-red-600">You have entered the wrong credentials.</p>
 	{/if}
 
 	{#if form?.credentials}
-		<p class="error">You have entered the wrong credentials.</p>
+	<p class="error text-red-600">You have entered the wrong credentials.</p>
 	{/if}
 </form></div>
