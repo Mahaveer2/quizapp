@@ -5,7 +5,9 @@
 
 <nav class="flex justify-center items-center border-b h-[60px]">
 	<div class="w-[80%] flex justify-between items-center">
-		<a href="/"><h2 class="text-2xl text-black ">Kim</h2></a>
+		<a href="/">
+      <img src="/logo.png" class="w-[150px] object-cover"/>
+    </a>
 		<div class="flex justify-between w-[300px]">
 			<NavLink title="Home" href="/" />
 			{#if $page.data.user}

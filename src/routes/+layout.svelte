@@ -13,6 +13,10 @@
 	
 </script>
 
+<svelte:head>
+	<title>Professorbot</title>
+</svelte:head>
+
 {#if !isAdmin}
 	<Navbar />
 {/if}

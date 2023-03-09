@@ -6,9 +6,8 @@ import { json } from '@sveltejs/kit'
 import type { Config } from '@sveltejs/adapter-vercel'
 import { PrismaClient } from '@prisma/client'
 
-
-export const POST: RequestHandler = async ({ request,locals }) => {
-	const client = new PrismaClient();
+export const POST: RequestHandler = async ({ request, locals }) => {
+	const client = new PrismaClient()
 
 	try {
 		if (!OPENAI_KEY) {
@@ -21,7 +20,7 @@ export const POST: RequestHandler = async ({ request,locals }) => {
 			throw new Error('No request data')
 		}
 
-		const shareLink = requestData.shareLink;
+		const shareLink = requestData.shareLink
 
 		const reqMessages: ChatCompletionRequestMessage[] = requestData.messages
 
@@ -54,17 +53,18 @@ export const POST: RequestHandler = async ({ request,locals }) => {
 			throw new Error('Query flagged by openai')
 		}
 		const test_data = await client.test.findUnique({
-			where:{
-				shareLink:shareLink
+			where: {
+				shareLink: shareLink
 			},
-			include:{
-				questions:true
+			include: {
+				questions: true
 			}
 		})
 
-		
 		const prompt =
-			'You are a strict examinee you have to start when user inputs start;you will ask 5 questions on the following data and ask question step by step and when the user has given all answers give his result and feedback and where he needs to improve ; the test data is : '+JSON.stringify(test_data) +' ;also dont answer any other thing then  users answers;if he asks random things tell the user to give answers only'
+			'You are a strict examinee you have to start when user inputs start;you will ask 5 questions on the following data and ask question step by step and when the user has given all answers give his result and feedback and where he needs to improve ; the test data is : ' +
+			JSON.stringify(test_data) +
+			' ;also dont answer any other thing then  users answers;if he asks random things tell the user to give answers only ;at the end give a json sorrunded by square brackets and using the following structure : {totalQuestions,score,feedback,review,tips} give the final response as :{...json}'
 		tokenCount += getTokens(prompt)
 
 		if (tokenCount >= 4000) {
@@ -73,7 +73,7 @@ export const POST: RequestHandler = async ({ request,locals }) => {
 
 		const messages: ChatCompletionRequestMessage[] = [
 			{ role: 'system', content: prompt },
-			...reqMessages,
+			...reqMessages
 		]
 
 		const chatRequestOpts: CreateChatCompletionRequest = {
@@ -95,6 +95,21 @@ export const POST: RequestHandler = async ({ request,locals }) => {
 		if (!chatResponse.ok) {
 			const err = await chatResponse.json()
 			throw new Error(err)
+		}
+
+		// if(JSON.parse(chatResponse.body)){
+		// 	console.log(JSON.parse(chatResponse.body))
+		// }
+
+		try {
+			const regex = /(\[.*?\])/
+			const match = regex.exec(chatResponse.body)
+
+			const result = JSON.parse(match[0])
+			console.log(result)
+		} catch (e) {
+			//do nothing
+			console.log('Not a json resoponse🤔 ')
 		}
 
 		return new Response(chatResponse.body, {
