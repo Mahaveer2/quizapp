@@ -61,10 +61,9 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			}
 		})
 
-		const prompt =
-			'You are a strict examinee you have to start when user inputs start;you will ask 5 questions on the following data and ask question step by step and when the user has given all answers give his result and feedback and where he needs to improve ; the test data is : ' +
-			JSON.stringify(test_data) +
-			' ;also dont answer any other thing then  users answers;if he asks random things tell the user to give answers only ;at the end give a json sorrunded by square brackets and using the following structure : {totalQuestions,score,feedback,review,tips} give the final response as :{...json}'
+		const prompt:string = `
+		You are a strict and angry examinee,you can be rude, you will conduct a test on the following test data : ${JSON.stringify(test_data)};you will ask questions one by one after the users says start , and at the end you will output a json stringified response in the following format :{totalQuestions,score,tips,feedback,review} and fill according to users score;any user input not related with question will be considered incorrect
+		`;
 		tokenCount += getTokens(prompt)
 
 		if (tokenCount >= 4000) {
@@ -79,7 +78,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		const chatRequestOpts: CreateChatCompletionRequest = {
 			model: 'gpt-3.5-turbo',
 			messages,
-			temperature: 0.9,
+			temperature: 1,
 			stream: true
 		}
 
@@ -97,16 +96,10 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			throw new Error(err)
 		}
 
-		// if(JSON.parse(chatResponse.body)){
-		// 	console.log(JSON.parse(chatResponse.body))
-		// }
-
 		try {
-			const regex = /(\[.*?\])/
-			const match = regex.exec(chatResponse.body)
-
-			const result = JSON.parse(match[0])
-			console.log(result)
+			if (JSON.parse(chatResponse.body)) {
+				console.log(JSON.parse(chatResponse.body))
+			}
 		} catch (e) {
 			//do nothing
 			console.log('Not a json resoponse🤔 ')

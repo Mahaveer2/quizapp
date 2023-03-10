@@ -17,7 +17,13 @@ body {
 }
 
 .btn-p{
-	@apply p-3 flex justify-center items-center bg-black text-white;
+	@apply p-3 flex justify-center items-center text-white;
+	background: rgb(0, 0, 0);
+	transition: .2s ease;
+}
+
+.btn-p:hover{
+	background: rgb(40, 40, 40);
 }
 
 input{

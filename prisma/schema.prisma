@@ -42,7 +42,17 @@ model Student {
   Chat          Chat?   @relation(fields: [chatId], references: [id])
   chatId        Int?
   password      String
+  credits       Int     @default(1)
+  payments PaymentSessions[]
   userAuthToken String  @unique @default("")
+}
+
+model PaymentSessions{
+  id Int @id @default(autoincrement())
+  paymentId String @unique
+  student Student @relation(fields: [studentId],references: [id])
+  studentId Int
+  createdAt DateTime @default(now())
 }
 
 model Score {

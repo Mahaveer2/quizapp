@@ -21,7 +21,7 @@
   }
 </script>
 
-<div class="container">
+<div class="container mt-14">
   <h2 class="text-2xl mb-5">Take Test</h2>
   <input bind:value={link} class="p-5 w-full border" type='password' name='password' placeholder="Enter Share Link" required/>
   <button class="btn-p mt-2 w-full" on:click={checkLink}>GO</button>
