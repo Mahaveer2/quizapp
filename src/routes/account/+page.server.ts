@@ -6,6 +6,10 @@ import { client } from '$lib/database'
 import type { Action, Actions, PageServerLoad } from './$types'
 
 export const load: PageServerLoad = async ({ locals }) => {
+	if (!locals.user) {
+		throw redirect(302, '/')
+	}
+	
 	const credits: any = await client.student.findUnique({
 		where: {
 			email: locals.user.email
@@ -15,9 +19,6 @@ export const load: PageServerLoad = async ({ locals }) => {
 		}
 	})
 	// redirect user if logged in
-	if (!locals.user) {
-		throw redirect(302, '/')
-	}
 
 	return {
 		credits: credits

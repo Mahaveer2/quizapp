@@ -8,8 +8,10 @@
 <div class="mt-14 container">
 	<h1 class="text-2xl">Account</h1>
 	<div class="w-full bg-black text-white flex justify-center p-5 mt-10 flex-col gap-5">
-		<h1 class="text-2xl ">Credits</h1>
-		{credits} credits left
+		<h1 class="text-3xl ">Credits</h1>
+		<h3 class='text-xl'>
+			{credits} credits.
+		</h3>
 		<div class='flex flex-wrap gap-5'>
 			<form method="POST" action="?/pay">
 				<input type="hidden" name='email' value={$page.data.user.email} />
@@ -37,15 +39,4 @@
 			</form>
 		</div>
 	</div>
-	<form method="POST" action="?/login" class="flex flex-col gap-5 mt-[50px] ">
-		<input class="p-5 w-full border" type="email" name="email" required placeholder="Enter Email" />
-		<input
-			class="p-5 w-full border"
-			type="password"
-			name="password"
-			placeholder="Enter Password"
-			required
-		/>
-		<button class="p-5 bg-black text-white">Change Account</button>
-	</form>
 </div>
