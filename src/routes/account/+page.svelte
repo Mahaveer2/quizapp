@@ -5,9 +5,26 @@
 
 	const { credits } = data.credits
 	const scores = data.results[0].scores;
+	console.log(scores)
 
 	const color = (total,score) => {
 		const percentage = score/total;
+
+		if(String(score).includes('%')){
+			const _p = Number(String(score).replaceAll('%',''));
+			if(_p < 30){
+				return 'bg-red-400'
+			}
+
+			if(_p < 50){
+				return 'bg-yellow-600'
+			}
+
+			if(_p > 70){
+				return 'bg-green-500'
+			}
+		}
+		
 		if(percentage <= 0.3){
 			return "bg-red-400";
 		}
@@ -67,7 +84,7 @@
 				<span class='w-full flex justify-center items-center'>Grade</span>
 			</div>
 			<div class='flex w-full gap-2 mb-3 mt-2'>
-				<div class='bg-green-500 text-white w-full h-[30px] flex justify-center items-center rounded'>{JSON.parse(score.score).totalQuestions}</div>
+				<div class='bg-black text-white w-full h-[30px] flex justify-center items-center rounded'>{JSON.parse(score.score).totalQuestions}</div>
 				<div class={`${color(JSON.parse(score.score).totalQuestions,JSON.parse(score.score).score)} text-white w-full h-[30px] flex justify-center items-center rounded`}>{JSON.parse(score.score).score}</div>
 				<div class='bg-green-500 text-white w-full h-[30px] flex justify-center items-center rounded'>{JSON.parse(score.score).grade}</div>
 			</div>

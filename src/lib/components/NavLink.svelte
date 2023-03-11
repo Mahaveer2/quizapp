@@ -4,6 +4,6 @@
 	export let href;
 </script>
 
-<a href={href} class={`w-full flex justify-center items-center h-[50px] ${$page.url.pathname == href ? "text-[rgba(0,0,0,1)]":"text-[rgba(0,0,0,0.5)]"} gap-4`}>
+<a href={href} class={`w-full flex justify-center items-center h-[50px] ${$page.url.pathname == href ? "text-[rgba(0,0,0,1)]":"text-[rgba(0,0,0,0.5)]"} gap-4 hover:text-[rgba(0,0,0,1)]`}>
   {title}
 </a>

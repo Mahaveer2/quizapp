@@ -41,7 +41,7 @@ input,textarea{
 	right: 0;
 	bottom: 0;
 	background: #999999;
-	opacity: .4;
+	opacity: .3;
 	display: block;
 	content: "";
 	z-index: 10000;
@@ -53,7 +53,8 @@ input,textarea{
 	width: 25px;
 	height: 25px;
 top: 20%;
-left: calc(50% - 25px);
+transform: translate(-50%,-50%);
+left: calc(50% -20px);
 
 	-webkit-animation: circle infinite .75s linear;
 		 -moz-animation: circle infinite .75s linear;

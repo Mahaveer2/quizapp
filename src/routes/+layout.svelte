@@ -4,6 +4,7 @@
 	import { loading,message } from '$lib/store';
 	import Navbar from '$lib/components/Navbar.svelte'
 	import Transition from '$lib/components/Transition.svelte'
+	import TopLoader from '$lib/components/TopLoader.svelte'
 
 	let isAdmin = false
 
@@ -16,7 +17,7 @@
 <svelte:head>
 	<title>Professorbot</title>
 </svelte:head>
-
+<TopLoader/>
 {#if !isAdmin}
 	<Navbar />
 {/if}

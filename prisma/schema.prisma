@@ -43,8 +43,19 @@ model Student {
   chatId        Int?
   password      String
   credits       Int     @default(1)
+  verified      Boolean @default(false)
+  freeCredits   FreeCredits[]
   payments PaymentSessions[]
   userAuthToken String  @unique @default("")
+}
+
+model FreeCredits{
+  id Int @id @default(autoincrement())
+  student Student @relation(fields: [studentId],references: [id])
+  studentId Int
+  used Boolean @default(false)
+  createdAt DateTime @default(now())
+  expiresAt DateTime @default(dbgenerated("(now() + '7 days'::interval)"))
 }
 
 model PaymentSessions{

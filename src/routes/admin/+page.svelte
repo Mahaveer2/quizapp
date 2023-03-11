@@ -14,10 +14,10 @@
     </div>
     <div class='w-full bg-black text-white p-10'>
       <h2 class='text-2xl flex gap-4 items-center '>
-        <i class='fa fa-percentage'></i>
-        Average</h2>
+        <i class='fa fa-graduation-cap'></i>
+        Professors</h2>
         <div class="mt-4">
-          {students.length}%
+          {data.profCount} Professors
         </div>
     </div>
     <div class='w-full bg-black text-white p-10'>
@@ -25,7 +25,7 @@
         <i class='fa fa-edit'></i>
         Tests</h2>
       <div class="mt-4">
-        {students.length} Tests
+        {data.testCount} Tests
       </div>
     </div>
   </div>
