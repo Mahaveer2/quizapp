@@ -6,6 +6,7 @@
 <h1 class='text-3xl my-3'>
   Sign up
 </h1>
+<p>After registering your account will be given to verify by the admins.</p>
 <input class="p-5 w-full border" type='email' name='email' required placeholder="Enter Email"/>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-2">
   <input class="p-5 w-full border" type='text' name='fname' required placeholder="First Name"/>

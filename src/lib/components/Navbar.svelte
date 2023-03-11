@@ -32,7 +32,7 @@
 				</form>
 			{:else}
 				<NavLink title="Login" href="/login" />
-				<NavLink title="Regsiter" href="/register" />
+				<NavLink title="Register" href="/register" />
 			{/if}
 			{#if $page.data.admin}
 				<NavLink title="Admin Panel" href="/admin" />
