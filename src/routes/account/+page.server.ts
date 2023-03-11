@@ -39,7 +39,7 @@ const pay: Action = async ({ request, cookies }) => {
 		client_secret: VITE_PAYPAL_SECRET
 	})
 
-	const siteUrl = DEBUG ? 'http://localhost:5173/' : DOMAIN
+	const siteUrl = DEBUG == 'true' ? 'http://localhost:5173/' : DOMAIN
 
 	const create_payment_json = {
 		intent: 'sale',
