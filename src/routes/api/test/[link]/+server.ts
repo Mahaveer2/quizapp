@@ -13,7 +13,11 @@ export async function GET({params}:RequestEvent){
     if(data){
       return json({
         status:200,
-        data
+      });
+    }else{
+      return json({
+        status:500,
+        message:"Sharelink is expired or invalid!"
       });
     }
   }catch(e){

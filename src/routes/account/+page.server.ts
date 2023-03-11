@@ -1,6 +1,6 @@
 import type { RequestEvent } from '../$types'
 import paypal from 'paypal-rest-sdk'
-import { VITE_PAYPAL_CLIENT, VITE_PAYPAL_SECRET } from '$env/static/private'
+import { VITE_PAYPAL_CLIENT, VITE_PAYPAL_SECRET, DOMAIN, DEBUG } from '$env/static/private'
 import { json, redirect, fail, error } from '@sveltejs/kit'
 import { client } from '$lib/database'
 import type { Action, Actions, PageServerLoad } from './$types'
@@ -39,15 +39,16 @@ const pay: Action = async ({ request, cookies }) => {
 		client_secret: VITE_PAYPAL_SECRET
 	})
 
+	const siteUrl = DEBUG ? 'http://localhost:5173/' : DOMAIN
+
 	const create_payment_json = {
 		intent: 'sale',
 		payer: {
 			payment_method: 'paypal'
 		},
 		redirect_urls: {
-			return_url:
-				'http://localhost:5173/credit/success' + '?auth=' + session + '&quantity=' + quantity,
-			cancel_url: 'http://localhost:5173/credit/error'
+			return_url: siteUrl + 'credit/success' + '?auth=' + session + '&quantity=' + quantity,
+			cancel_url: siteUrl + 'credit/error'
 		},
 		transactions: [
 			{

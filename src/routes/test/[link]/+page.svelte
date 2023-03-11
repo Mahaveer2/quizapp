@@ -85,7 +85,7 @@
 
 {#if $page.data.user}
 <div class="flex flex-col pt-4 w-full items-center absolute top-[45px]">
-		<div class="h-[80vh] w-full bg-black p-4 overflow-y-auto flex flex-col gap-4">
+		<div class="h-[63vh] w-full p-4 overflow-y-auto flex flex-col gap-4">
 			<div class="flex flex-col gap-2">
 				<ChatMessage type="assistant" message="Type start to continue start" />
 				{#each chatMessages as message}
@@ -101,11 +101,11 @@
 			<div class="" bind:this={scrollToDiv} />
 		</div>
 		<form
-			class="flex w-full gap-4 bg-black p-4"
+			class="flex flex-col w-full gap-4  p-4"
 			on:submit|preventDefault={() => handleSubmit()}
 		>
-			<input type="text" class="input input-bordered w-full" bind:value={query} />
-			<button type="submit" class="btn btn-p"> Send </button>
+		<textarea bind:value={query} class="p-5 w-full border" placeholder="Your Answer" />
+			<button type="submit" class="btn-p"> Send </button>
 		</form>
 		
 	</div>
