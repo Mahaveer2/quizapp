@@ -3,6 +3,7 @@
 	import { page } from '$app/stores'
 	import type { ChatCompletionRequestMessage } from 'openai'
 	import { SSE } from 'sse.js'
+	import { loading as load } from '$lib/store'
 	import { onMount } from 'svelte'
 
 	let query: string = ''
@@ -28,6 +29,7 @@
 		})
 
 		let json = await req.json()
+		load.set(true)
 		const data = json.data.map((data) =>
 			[
 				{ role: 'user', content: data.prompt },
@@ -38,6 +40,7 @@
 		const map2 = [].concat(...data)
 
 		chatMessages = [...chatMessages, ...map2]
+		load.set(false)
 		return json
 	}
 
@@ -103,8 +106,10 @@
 		if ($page.data.user) {
 			getMessages()
 			scrollToBottom()
+			load.set(true)
 			setTimeout(() => {
 				objDiv.scrollTop = objDiv.scrollHeight
+				load.set(false)
 			}, 5000)
 		}
 	})

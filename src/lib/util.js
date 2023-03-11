@@ -12,5 +12,5 @@ export function showMessage({type,_message}){
       type:'',
       show:false,
     })
-  },1000)
+  },3000)
 }
