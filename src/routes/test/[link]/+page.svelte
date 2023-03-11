@@ -6,11 +6,11 @@
 	import { SSE } from 'sse.js'
 	import { onMount } from 'svelte'
 	import { showMessage } from '$lib/util'
-	
 
 	let query: string = ''
 	let answer: string = ''
 	let loading: boolean = false
+	let submitted: boolean = false
 	let chatMessages: ChatCompletionRequestMessage[] = []
 	let scrollToDiv: HTMLDivElement
 
@@ -62,14 +62,17 @@
 								score.shareLink = $page.params.link
 
 								try {
-									let req = await fetch('/api/score', {
-										method: 'POST',
-										body: JSON.stringify(score)
-									})
-									showMessage({
-										type: 'success',
-										_message: 'Test saved to profile.'
-									})
+									if (!submitted) {
+										let req = await fetch('/api/score', {
+											method: 'POST',
+											body: JSON.stringify(score)
+										})
+										submitted = true
+										showMessage({
+											type: 'success',
+											_message: 'Test saved to profile.'
+										})
+									}
 								} catch (e) {
 									showMessage({
 										type: 'Error',

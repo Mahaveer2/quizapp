@@ -76,7 +76,7 @@
 	</div>
 	<div class='grid grid-cols-1 lg:grid-cols-3 mt-10 gap-3'>
 		 {#each scores as score}
-		 <div class='w-full flex justify-center items-center flex-col border p-4'>
+		 <div class='w-full flex justify-center items-center flex-col border p-4 '>
 			<h2 class='text-2xl'>{score.test.name}</h2>
 			<div class='flex w-full gap-2 mt-5'>
 				<span class='w-full flex justify-center items-center'>Questions</span>
@@ -88,7 +88,7 @@
 				<div class={`${color(JSON.parse(score.score).totalQuestions,JSON.parse(score.score).score)} text-white w-full h-[30px] flex justify-center items-center rounded`}>{JSON.parse(score.score).score}</div>
 				<div class='bg-green-500 text-white w-full h-[30px] flex justify-center items-center rounded'>{JSON.parse(score.score).grade}</div>
 			</div>
-			<div class='flex flex-col gap-4'>
+			<div class='flex flex-col gap-4 min-h-[300px] mt-3'>
 				<p>Feedback: {JSON.parse(score.score).feedback}</p>
 				<p>Review: {JSON.parse(score.score).review}</p>
 				<p>Tips: {JSON.parse(score.score).tips}</p>
