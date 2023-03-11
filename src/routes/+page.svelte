@@ -16,7 +16,7 @@
 		setTimeout(function () {
 			scrollToDiv.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' })
 			scrollToDiv.scrollTop = scrollToDiv.scrollHeight
-		}, 100)
+		}, 200)
 	}
 
 	const getMessages = async () => {
@@ -105,8 +105,7 @@
 			scrollToBottom()
 			setTimeout(() => {
 				objDiv.scrollTop = objDiv.scrollHeight
-				console.log(objDiv)
-			}, 2000)
+			}, 5000)
 		}
 	})
 </script>
@@ -123,7 +122,7 @@
 					<ChatMessage type="assistant" message={answer} />
 				{/if}
 				{#if loading}
-					<ChatMessage type="assistant" message="Loading.." />
+					<ChatMessage type="assistant" message="Loading..." />
 				{/if}
 			</div>
 			<div class="" bind:this={scrollToDiv} />

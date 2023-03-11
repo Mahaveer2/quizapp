@@ -98,27 +98,11 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			throw new Error(err)
 		}
 
-		reqMessages.forEach(msg => {
-			if(msg.role == "assistant"){
-				try{
-					const match = msg.content.match(/`(.*)`/);
-					if(match){
-						console.log(match[0])
-						try{
-							const data = JSON.stringify(match[0]);
-							const score = JSON.parse(JSON.parse(data));
-							console.log(score)
-						}catch(e){
-							console.log(e)
-						}
-					}else{
-						console.log("NOT A JSON")
-					}
-				}catch(e){
-					console.log(e)
-				}
-			}
-		})
+		// reqMessages.forEach(msg => {
+		// 	if(msg.role == "assistant"){
+		// 		
+		// 	}
+		// })
 
 		return new Response(chatResponse.body, {
 			headers: {

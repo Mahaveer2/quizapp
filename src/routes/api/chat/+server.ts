@@ -61,13 +61,12 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		const messages: ChatCompletionRequestMessage[] = [
 			{ role: 'system', content: prompt },
 			...reqMessages,
-			...userMessages.map(({ prompt }) => ({ role: 'user', content: prompt })),
 		];
 
 		const chatRequestOpts: CreateChatCompletionRequest = {
 			model: 'gpt-3.5-turbo',
 			messages,
-			temperature: 1,
+			temperature: 0.8,
 			stream: true
 		};
 

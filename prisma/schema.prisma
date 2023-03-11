@@ -57,7 +57,7 @@ model PaymentSessions{
 
 model Score {
   id        Int     @id @default(autoincrement())
-  score     Float
+  score     Json
   student   Student @relation(fields: [studentId], references: [id])
   studentId Int
   test      Test    @relation(fields: [testId], references: [id])
