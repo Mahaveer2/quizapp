@@ -5,7 +5,7 @@
 	import type { ChatCompletionRequestMessage } from 'openai'
 	import { SSE } from 'sse.js'
 	import { onMount } from 'svelte'
-
+	
 	let query: string = ''
 	let answer: string = ''
 	let loading: boolean = false
@@ -45,12 +45,12 @@
 		eventSource.addEventListener('message', async (e) => {
 			scrollToBottom()
 			try {
-				loading = false
+				loading = false;
 				if (e.data === '[DONE]') {
 					chatMessages = [...chatMessages, { role: 'assistant', content: answer }]
 					answer = ''
 					query = ''
-					return
+					return;
 				}
 
 				const completionResponse = JSON.parse(e.data)
@@ -101,11 +101,12 @@
 			<div class="" bind:this={scrollToDiv} />
 		</div>
 		<form
+		aria-disabled={loading}
 			class="flex flex-col w-full gap-4  p-4"
 			on:submit|preventDefault={() => handleSubmit()}
 		>
 		<textarea bind:value={query} class="p-5 w-full border" placeholder="Your Answer" />
-			<button type="submit" class="btn-p"> Send </button>
+			<button disabled={loading} class="disabled:bg-[rgba(0,0,0,.7)] btn-p gap-5" type="submit"> Send <i class='fa fa-paper-plane'></i></button>
 		</form>
 		
 	</div>

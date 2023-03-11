@@ -61,9 +61,11 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			}
 		})
 
-		const prompt:string = `
-		You are a strict and angry examinee,you can be rude, you will conduct a test on the following test data : ${JSON.stringify(test_data)};you will ask questions one by one after the users says start , and at the end you will output a json stringified response in the following format :{totalQuestions,score,tips,feedback,review} and fill according to users score;any user input not related with question will be considered incorrect
-		`;
+		const prompt: string = `
+		You are a strict and angry examinee,you can be rude, you will conduct a test on the following test data : ${JSON.stringify(
+			test_data
+		)};you will ask questions one by one after the users says start , and at the end you will output a valid json stringified response in the following format :{totalQuestions,score,grade,tips,feedback,review} sorrounded bu backticks and fill according to users score;any user input not related with question will be considered incorrect and at the end of test return a json stringified response sorrounded by only one backtick like;
+		`
 		tokenCount += getTokens(prompt)
 
 		if (tokenCount >= 4000) {
@@ -96,14 +98,27 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			throw new Error(err)
 		}
 
-		try {
-			if (JSON.parse(chatResponse.body)) {
-				console.log(JSON.parse(chatResponse.body))
+		reqMessages.forEach(msg => {
+			if(msg.role == "assistant"){
+				try{
+					const match = msg.content.match(/`(.*)`/);
+					if(match){
+						console.log(match[0])
+						try{
+							const data = JSON.stringify(match[0]);
+							const score = JSON.parse(JSON.parse(data));
+							console.log(score)
+						}catch(e){
+							console.log(e)
+						}
+					}else{
+						console.log("NOT A JSON")
+					}
+				}catch(e){
+					console.log(e)
+				}
 			}
-		} catch (e) {
-			//do nothing
-			console.log('Not a json resoponse🤔 ')
-		}
+		})
 
 		return new Response(chatResponse.body, {
 			headers: {

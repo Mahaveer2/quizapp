@@ -10,7 +10,7 @@
 	let loading: boolean = false
 	let chatMessages: ChatCompletionRequestMessage[] = []
 	let scrollToDiv: HTMLDivElement
-	let objDiv: HTMLDivElement;
+	let objDiv: HTMLDivElement
 
 	function scrollToBottom() {
 		setTimeout(function () {
@@ -104,17 +104,17 @@
 			getMessages()
 			scrollToBottom()
 			setTimeout(() => {
-				objDiv.scrollTop = objDiv.scrollHeight;
+				objDiv.scrollTop = objDiv.scrollHeight
 				console.log(objDiv)
-			},2000)
+			}, 2000)
 		}
 	})
 </script>
 
 {#if $page.data.user}
-	<div class="flex flex-col pt-4 w-full items-center absolute top-[45px]">
-		<div bind:this={objDiv} class="h-[75vh] w-ful p-4 overflow-y-auto flex flex-col gap-4">
-			<div class="flex flex-col gap-2">
+	<div class="flex flex-col pt-4 w-full items-center absolute top-[45px] w-full">
+		<div bind:this={objDiv} class="h-[65vh] w-ful p-4 overflow-y-auto flex flex-col gap-4">
+			<div class="flex flex-col gap-2 w-full">
 				<ChatMessage type="assistant" message="Hello, ask me anything you want!" />
 				{#each chatMessages as message}
 					<ChatMessage type={message.role} message={message.content} />
@@ -128,24 +128,29 @@
 			</div>
 			<div class="" bind:this={scrollToDiv} />
 		</div>
-		<form class="flex w-full  gap-4 p-4" on:submit|preventDefault={() => handleSubmit()}>
-			<input type="text" bind:value={query} class="p-5 w-full border" placeholder="Your Answer" />
-			<button type="submit" class="btn-p"> Send </button>
+		<form class="flex w-full flex-col  gap-4 p-4" on:submit|preventDefault={() => handleSubmit()}>
+			<input type="text" bind:value={query} class="p-5 w-full border" placeholder="Ask here.." />
+			<button type="submit" class="btn-p gap-5"> Send <i class="fa fa-paper-plane" /></button>
 		</form>
 	</div>
 {:else}
 	<div class="flex justify-center items-center flex-col">
 		<div class="w-full  h-[calc(100vh-60px)] relative">
-			<div class="content absolute top-[20%] pl-[8vw] left-[0] flex flex-col w-full justify-start gap-10">
-				<img src="/ai.jpg" class="w-[100px] h-[100px] lg:w-[400px] lg:h-[400px] lg:absolute right-[-0px] top-[-10%] z-[-2]"/>
-				<h1 class="text-black text-6xl font-semibold">Welcome to ProfBot </h1>
-				<p class="text-black max-w-[800px] w-[60vw]">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi quidem mollitia hic? Quis, est quibusdam. Tenetur quaerat consequatur odit veniam provident dolorum quae nesciunt unde cum nobis voluptatem, corporis quia.</p>
-				<a href="/login" class="btn-p w-[200px]">
-
-					Get Started
-					</a>
+			<div
+				class="content absolute top-[20%] pl-[8vw] left-[0] flex flex-col w-full justify-start gap-10"
+			>
+				<img
+					src="/ai.jpg"
+					class="w-[100px] h-[100px] lg:w-[400px] lg:h-[400px] lg:absolute right-[-0px] top-[-10%] z-[-2]"
+				/>
+				<h1 class="text-black text-6xl font-semibold">Welcome to ProfBot</h1>
+				<p class="text-black max-w-[800px] w-[60vw]">
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi quidem mollitia hic?
+					Quis, est quibusdam. Tenetur quaerat consequatur odit veniam provident dolorum quae
+					nesciunt unde cum nobis voluptatem, corporis quia.
+				</p>
+				<a href="/login" class="btn-p w-[200px]"> Get Started </a>
 			</div>
-			
 		</div>
 	</div>
 {/if}
