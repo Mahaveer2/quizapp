@@ -51,7 +51,7 @@ model Student {
 
 model FreeCredits{
   id Int @id @default(autoincrement())
-  student Student @relation(fields: [studentId],references: [id])
+  student Student @relation(fields: [studentId],references: [id],onDelete: Cascade)
   studentId Int
   used Boolean @default(false)
   createdAt DateTime @default(now())

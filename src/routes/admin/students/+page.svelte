@@ -1,5 +1,6 @@
 <script>
 	import { invalidate } from '$app/navigation'
+	import { showMessage } from '$lib/util'
   import Fuse from 'fuse.js';
 	export let data
 	let loading = []
@@ -38,6 +39,35 @@
 		students[index].verified = !students[index].verified
 		students = students
 	}
+
+  const deleteStudent = async(id,index) => {
+    if(!confirm("Are you sure you want to delete")){
+      return false;
+    }
+
+    const data = {id:id}
+
+    let req = await fetch("/api/student",{
+      method:"DELETE",
+      body:JSON.stringify(data)
+    })
+
+    let res = await req.json();
+    if(res.status == 200){
+      showMessage({
+        _message:"Deleted student succesfully!",
+        type:"success"
+      });
+    }else{
+      showMessage({
+        _message:req.message,
+        type:"Error"
+      });
+      return false;
+    }
+    students.splice(index, 1);
+    students = students;
+  }
 </script>
 
 <div class="container">
@@ -67,7 +97,7 @@
 								<button
 									aria-busy={loading[index]}
 									on:click={() => verifyStudent(student.id, index)}
-									class="btn btn-error">Disverify</button
+									class="btn btn-warning">Disverify</button
 								>
 							{:else}
 								<button
@@ -76,6 +106,11 @@
 									class="btn btn-black">Verify</button
 								>
 							{/if}
+              <button
+									aria-busy={loading[index]}
+									on:click={() => deleteStudent(student.id, index)}
+									class="btn btn-error">Delete</button
+								>
 						</td>
 					</tr>
 				{/each}
