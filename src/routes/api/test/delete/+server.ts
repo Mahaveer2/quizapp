@@ -17,7 +17,7 @@ export async function POST({ request }: any) {
 			}
 		})
 
-		return json({ success: true })
+		return json({ status: 200 })
 	} catch (e) {
 		console.log(e)
 	}

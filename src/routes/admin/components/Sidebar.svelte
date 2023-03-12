@@ -9,7 +9,7 @@
 	class="lg:w-[300px] bg-black text-white flex flex-col h-[100vh] left-0 md:left-0 w-[90px] fixed top-0"
 >
 	<div class="flex justify-center w-full">
-		<h2 class="text-2xl font-regular text-center mt-10 bg-[rgba(255,255,255,.1)] rounded-full w-[60px] h-[60px]  md:w-[60px] md:h-[60px] flex justify-center items-center">{ico}</h2>
+		<h2 class={`text-2xl font-regular text-center mt-10 bg-[rgba(255,255,255,.2)] rounded-full w-[60px] h-[60px]  md:w-[60px] md:h-[60px] flex justify-center items-center`}>{ico}</h2>
 		</div>
 	<div class="flex flex-col w-full mt-14">
 		<SideLink title="Dashboard" icon="fa fa-gauge" href="/admin" />

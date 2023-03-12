@@ -29,39 +29,40 @@ model Question {
   id            Int    @id @default(autoincrement())
   questionText  String
   correctAnswer String
+  marks         Int    @default(1)
   test          Test   @relation(fields: [testId], references: [id], onDelete: Cascade)
   testId        Int
 }
 
 model Student {
-  id            Int     @id @default(autoincrement())
-  email         String  @unique
+  id            Int               @id @default(autoincrement())
+  email         String            @unique
   firstName     String
   lastName      String
   scores        Score[]
-  Chat          Chat?   @relation(fields: [chatId], references: [id])
+  Chat          Chat?             @relation(fields: [chatId], references: [id])
   chatId        Int?
   password      String
-  credits       Int     @default(1)
-  verified      Boolean @default(false)
+  credits       Int               @default(0)
+  verified      Boolean           @default(false)
   freeCredits   FreeCredits[]
-  payments PaymentSessions[]
-  userAuthToken String  @unique @default("")
+  payments      PaymentSessions[]
+  userAuthToken String            @unique @default("")
 }
 
-model FreeCredits{
-  id Int @id @default(autoincrement())
-  student Student @relation(fields: [studentId],references: [id],onDelete: Cascade)
+model FreeCredits {
+  id        Int      @id @default(autoincrement())
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
   studentId Int
-  used Boolean @default(false)
+  used      Boolean  @default(false)
   createdAt DateTime @default(now())
   expiresAt DateTime @default(dbgenerated("(now() + '7 days'::interval)"))
 }
 
-model PaymentSessions{
-  id Int @id @default(autoincrement())
-  paymentId String @unique
-  student Student @relation(fields: [studentId],references: [id])
+model PaymentSessions {
+  id        Int      @id @default(autoincrement())
+  paymentId String   @unique
+  student   Student  @relation(fields: [studentId], references: [id])
   studentId Int
   createdAt DateTime @default(now())
 }
@@ -69,9 +70,9 @@ model PaymentSessions{
 model Score {
   id        Int     @id @default(autoincrement())
   score     Json
-  student   Student @relation(fields: [studentId], references: [id])
+  student   Student @relation(fields: [studentId], references: [id],onDelete: Cascade)
   studentId Int
-  test      Test    @relation(fields: [testId], references: [id])
+  test      Test    @relation(fields: [testId], references: [id],onDelete: Cascade)
   testId    Int
 }
 

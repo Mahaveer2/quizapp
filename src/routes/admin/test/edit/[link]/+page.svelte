@@ -1,12 +1,18 @@
 <script lang="ts">
 	import { loading } from '$lib/store'
-	import { showMessage } from '$lib/util'
+	import Modal from '../../../components/Modal.svelte'
+  import { showMessage } from '$lib/util'
 	import { quintOut } from 'svelte/easing'
 	import { crossfade } from 'svelte/transition'
 
-	let isModalOpen = false
 
-	const [send, receive] = crossfade({
+  export let data;
+  const {test} = data;
+
+  
+  let isModalOpen = false
+
+  const [send, receive] = crossfade({
 		duration: (d) => Math.sqrt(d * 200),
 
 		fallback(node, params) {
@@ -24,13 +30,13 @@
 		}
 	})
 
-	interface Question {
+  interface Question {
 		questionText: string;
 		correctAnswer: string;
 		marks:number;
 	}
 
-	let questions: Question[] = [];
+  let questions:Question[] = test.questions;
 
 	let currentQuestion: Question = {
 		questionText: '',
@@ -75,18 +81,19 @@
 
 		try {
 			loading.set(true);
-			let req = await fetch('/api/test/add', {
+			let req = await fetch(`/api/test/${test.shareLink}`, {
 				method: 'POST',
 				body: form
 			})
 
 			let res = await req.json()
 
-			if (res.success) {
-				alert('Created Succesfully!')
-				questions = []
-				form.clear();
-				loading.set(false);
+			if (res.status == 200) {
+        loading.set(false);
+        showMessage({
+          type:"success",
+          _message:"Test updated succesfully!"
+        })
 			}
 		} catch (e) {
 			console.error(e)
@@ -94,22 +101,13 @@
 	}
 </script>
 
-<div class="container">
-	<h1 class="text-2xl">Create</h1>
-	<form
-		on:submit|preventDefault={(e) => handleSubmit(e)}
-		class="mt-10 flex justify-between items-center w-full"
-	>
-		<input
-			class="p-5 w-full border"
-			type="text"
-			name="name"
-			required
-			placeholder="Enter Test Name"
-		/>
-		<button type="submit" class="btn-p h-[65px] p-5">Create</button>
-	</form>
-	<section class="mt-10 gap-3">
+<div class="container mt-14">
+  <h1 class="text-2xl">{test.name}</h1>
+  <form on:submit|preventDefault={(e) => handleSubmit(e)} >
+    <input name="name" class="border p-5 w-full my-3" placeholder="Enter Test Name" bind:value={test.name}>
+    <button class="btn-p w-full">Submit</button>
+  </form>
+  <section class="mt-10 gap-3">
 		{#each questions as question, index}
 			<div
 				class="flex flex-col w-full gap-5 border border-1 p-5"
@@ -157,14 +155,14 @@
 				</div>
 			</div>
 		{/each}
-	</section>
-	<button
+    <button
 		disabled={questions.length >= 20}
 		on:click={() => (isModalOpen = true)}
 		class="btn-p mt-4 cursor-pointer disabled:bg-[rgba(0,0,0,.8)]">Add Question +</button
 	>
+	</section>
+		
 </div>
-
 <div class="modal" class:modal-open={isModalOpen}>
 	<div class="modal-box">
 		<div class="flex justify-between items-center w-full">

@@ -1,4 +1,6 @@
 <script>
+	import { goto } from "$app/navigation"
+	import { showMessage } from "$lib/util"
 	import { onMount } from "svelte"
 
 
@@ -30,8 +32,11 @@
 				body: form
 			})
 			let res = await req.json()
-			if (res.success) {
-				alert('Deleted test.')
+			if (res.status == 200) {
+				showMessage({
+					type:'success',
+					_message:"Test deleted successfully!"
+				})
 			}
 
       getTests();
@@ -67,7 +72,8 @@
           <a class="link" href={`/test/${test.shareLink}`}>{test.shareLink}</a>
         </td>
         <td>
-          <button on:click={() => deleteTest(test.shareLink)}>Delete</button>
+          <button class="btn btn-error" on:click={() => deleteTest(test.shareLink)}>Delete</button>
+					<button class="btn btn-black" on:click={() => goto("test/edit/"+test.shareLink)}>Edit</button>
         </td>
       </tr>
       {/each}

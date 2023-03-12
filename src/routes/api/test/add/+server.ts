@@ -7,6 +7,7 @@ export async function POST({ request }: any) {
   interface Question {
     questionText: string;
     correctAnswer: string;
+    marks:number;
   }
 
   const questions : Question[] = JSON.parse(formData.get('questions'));
