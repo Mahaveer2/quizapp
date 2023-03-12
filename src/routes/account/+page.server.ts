@@ -11,18 +11,18 @@ export const load: PageServerLoad = async ({ locals }) => {
 	}
 
 	const results = await client.student.findMany({
-		where:{
-			email:locals.user.email,
+		where: {
+			email: locals.user.email
 		},
-		include:{
-			scores:{
-				include:{
-					test:true,
+		include: {
+			scores: {
+				include: {
+					test: true
 				}
-			},
+			}
 		}
 	})
-	
+
 	const credits: any = await client.student.findUnique({
 		where: {
 			email: locals.user.email
@@ -35,7 +35,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 	return {
 		credits: credits,
-		results:results,
+		results: results
 	}
 }
 

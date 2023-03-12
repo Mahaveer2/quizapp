@@ -1,47 +1,51 @@
 <script>
 	import { page } from '$app/stores'
+	import { showMessage } from '$lib/util'
+	import Modal from '../admin/components/Modal.svelte'
+	import TestCard from './TestCard.svelte'
 	export let form
 	export let data
+	let loading = false;
 
 	const { credits } = data.credits
-	const scores = data.results[0].scores;
-	console.log(scores)
+	const scores = data.results[0].scores
+	let isModal = false
 
-	const color = (total,score) => {
-		const percentage = score/total;
+	const handleStudentChange = async (e) => {
+		const data = new FormData(e.target);
+		data.append("email",$page.data.user.email);
+		loading = true;
+		let req = await fetch("/api/student/change",{
+			method:"POST",
+			body:data
+		})
 
-		if(String(score).includes('%')){
-			const _p = Number(String(score).replaceAll('%',''));
-			if(_p < 30){
-				return 'bg-red-400'
-			}
+		loading = false;
 
-			if(_p < 50){
-				return 'bg-yellow-600'
-			}
+		let res = await req.json();
 
-			if(_p > 70){
-				return 'bg-green-500'
-			}
-		}
-		
-		if(percentage <= 0.3){
-			return "bg-red-400";
-		}
-
-		if(percentage <= 0.5){
-			return "bg-yellow-600";
-		}
-
-		if(percentage >= 0.7){
-			return "bg-green-500";
+		if(res.status == 200){
+			isModal = false;
+			showMessage({
+				type:"success",
+				_message:"Account Updated Succesfully!"
+			})
+		}else{
+			showMessage({
+				type:"Error",
+				_message:res.message
+			})
 		}
 	}
-	// console.log(scores)
 </script>
 
 <div class="mt-14 container">
-	<h1 class="text-2xl">Account</h1>
+	<div class="flex justify-between w-full">
+		<h1 class="text-2xl">Account</h1>
+		<button on:click={() => (isModal = true)} class="btn btn-black bg-black"
+			>Change Account settings.</button
+		>
+	</div>
 	<div class="w-full bg-black text-white flex justify-center p-5 mt-10 flex-col gap-5">
 		<h1 class="text-3xl ">Credits</h1>
 		<h3 class="text-xl">
@@ -74,26 +78,68 @@
 			</form>
 		</div>
 	</div>
-	<div class='grid grid-cols-1 lg:grid-cols-3 mt-10 gap-3'>
-		 {#each scores as score}
-		 <div class='w-full flex justify-center items-center flex-col border p-4 '>
-			<h2 class='text-2xl'>{score.test.name}</h2>
-			<div class='flex w-full gap-2 mt-5'>
-				<span class='w-full flex justify-center items-center'>Questions</span>
-				<span class='w-full flex justify-center items-center'>Correct</span>
-				<span class='w-full flex justify-center items-center'>Grade</span>
-			</div>
-			<div class='flex w-full gap-2 mb-3 mt-2'>
-				<div class='bg-black text-white w-full h-[30px] flex justify-center items-center rounded'>{JSON.parse(score.score).totalQuestions}</div>
-				<div class={`${color(JSON.parse(score.score).totalQuestions,JSON.parse(score.score).score)} text-white w-full h-[30px] flex justify-center items-center rounded`}>{JSON.parse(score.score).score}</div>
-				<div class='bg-green-500 text-white w-full h-[30px] flex justify-center items-center rounded'>{JSON.parse(score.score).grade}</div>
-			</div>
-			<div class='flex flex-col gap-4 min-h-[300px] mt-3'>
-				<p>Feedback: {JSON.parse(score.score).feedback}</p>
-				<p>Review: {JSON.parse(score.score).review}</p>
-				<p>Tips: {JSON.parse(score.score).tips}</p>
-			</div>
-		</div>
-		 {/each}
+	<div class="grid grid-cols-1 lg:grid-cols-3 mt-10 gap-3">
+		{#each scores as score}
+			<TestCard {score} />
+		{/each}
 	</div>
+	<Modal title="Change account details" bind:isModalOpen={isModal}>
+		<form on:submit|preventDefault={(e) => handleStudentChange(e)}>
+			<div class="form-control w-full ">
+				<label class="label">
+					<span class="label-text">First Name</span>
+				</label>
+				<input
+					type="text"
+					required
+					bind:value={$page.data.user.firstName}
+					name="fname"
+					placeholder="First name"
+					class="input input-bordered w-full "
+				/>
+			</div>
+			<div class="form-control w-full ">
+				<label class="label">
+					<span class="label-text">Last Name</span>
+				</label>
+				<input
+					type="text"
+					required
+					name="lname"
+					bind:value={$page.data.user.lastName}
+					placeholder="Last name"
+					class="input input-bordered w-full "
+				/>
+			</div>
+			<div class="form-control w-full ">
+				<label class="label">
+					<span class="label-text">Current Password</span>
+				</label>
+				<input
+					type="password"
+					required
+					name="oldpass"
+					placeholder="Current Password"
+					class="input input-bordered w-full "
+				/>
+			</div>
+			<div class="form-control w-full ">
+				<label class="label">
+					<span class="label-text">New Password</span>
+				</label>
+				<input
+					type="password"
+					required
+					name="newpass"
+					placeholder="New Password"
+					class="input input-bordered w-full "
+				/>
+			</div>
+			<button aria-busy={loading} class="btn-p w-full mt-4 cursor-pointer rounded-lg gap-3">
+				<i class="fa fa-cogs">
+
+				</i>
+				Change</button>
+		</form>
+	</Modal>
 </div>

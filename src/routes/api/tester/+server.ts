@@ -64,7 +64,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		const prompt: string = `
 		You are a strict and angry examinee,you can be rude, you will conduct a test on the following test data : ${JSON.stringify(
 			test_data
-		)};you will ask questions one by one after the users says start , and at the end you will output a valid json stringified response in the following format :{totalQuestions,score,grade,tips,feedback,review} sorrounded bu backticks and fill according to users score;any user input not related with question will be considered incorrect and at the end of test return a json stringified response sorrounded by only one backtick like;
+		)};you will ask questions one by one after the users says start ,you will also tell the user about the marks on the question , and at the end you will output a valid json stringified response in the following format :{totalQuestions,score,grade,tips,feedback,review} sorrounded bu backticks and fill according to users score;any user input not related with question will be considered incorrect and at the end of test return a json stringified response sorrounded by only one backtick like;
 		`
 		tokenCount += getTokens(prompt)
 

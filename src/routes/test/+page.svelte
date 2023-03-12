@@ -19,7 +19,7 @@
 			})
 			return
 		}
-		let req = await fetch(`/api/test/${link}`)
+		let req = await fetch(`/api/test/check/${link}`)
 		let res = await req.json()
 
 		if (res.status == 200) {
