@@ -55,7 +55,7 @@
 		const form = new FormData(e.target)
 		form.append('questions', JSON.stringify(questions))
 
-		if (!questions.length > 0) {
+		if (questions.length <= 0) {
 			alert('No questions')
 			return false
 		}
@@ -133,7 +133,7 @@
 		{/each}
 	</section>
 	<button
-		disabled={questions.length >= 5}
+		disabled={questions.length >= 20}
 		on:click={() => (isModalOpen = true)}
 		class="btn-p mt-4 cursor-pointer disabled:bg-[rgba(0,0,0,.8)]">Add Question +</button
 	>
@@ -170,7 +170,7 @@
 					class="input input-bordered w-full "
 				/>
 			</div>
-			<button disabled={questions.length >= 5} class="btn-p w-full mt-4 cursor-pointer rounded-lg"
+			<button disabled={questions.length >= 20} class="btn-p w-full mt-4 cursor-pointer rounded-lg"
 				>Add +</button
 			>
 		</form>
