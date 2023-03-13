@@ -104,13 +104,14 @@
 
 	onMount(async () => {
 		if ($page.data.user) {
+			load.set(true)
 			getMessages()
 			scrollToBottom()
-			load.set(true)
+			load.set(false)
+			
 			setTimeout(() => {
 				objDiv.scrollTop = objDiv.scrollHeight
-				load.set(false)
-			}, 5000)
+			}, 200)
 		}
 	})
 </script>
