@@ -30,6 +30,7 @@
 	//   })
 	// })
 	let newAnswer: string = ''
+	let isTimeOver : boolean = false;
 
 	const handleSubmit = async () => {
 		loading = true
@@ -39,7 +40,7 @@
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			payload: JSON.stringify({ messages: chatMessages, shareLink: $page.params.link })
+			payload: JSON.stringify({ messages: chatMessages, shareLink: $page.params.link,isTimeOver:isTimeOver })
 		})
 
 		eventSource.addEventListener('error', handleError)
@@ -49,6 +50,9 @@
 			try {
 				loading = false
 				if (e.data === '[DONE]') {
+					if(timeLeft == 300){
+						startTimer();
+					}
 					chatMessages = [...chatMessages, { role: 'assistant', content: answer }]
 					try {
 						console.log(answer)
@@ -117,6 +121,23 @@
 		console.error(err)
 	}
 
+	function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+  }
+
+	let timeLeft:number = 300;
+
+	const startTimer = () => {
+		let timerId = setInterval(() => {
+      timeLeft--;
+      if (timeLeft === 0) {
+        clearInterval(timerId);
+      }
+    }, 1000);
+	};
+
 	onMount(async () => {
 		if ($page.data.user) {
 		}
@@ -126,6 +147,7 @@
 
 {#if $page.data.user}
 	<div class="flex flex-col pt-4 w-full items-center absolute top-[45px]">
+		<h1 class="my-4 text-sm absolute top-2 bg-[rgba(255,255,255,.25)] p-3 rounded-full">{formatTime(timeLeft)} left</h1>
 		<div class="h-[63vh] w-full p-4 overflow-y-auto flex flex-col gap-4">
 			<div class="flex flex-col gap-2">
 				<ChatMessage type="assistant" message="Type start to continue start" />
@@ -136,7 +158,7 @@
 					<ChatMessage type="assistant" message={answer} />
 				{/if}
 				{#if loading}
-					<ChatMessage type="assistant" message="Loading.." />
+					<ChatMessage type="assistant" message="Loading..." />
 				{/if}
 			</div>
 			<div class="" bind:this={scrollToDiv} />
