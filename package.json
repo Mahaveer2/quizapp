@@ -46,6 +46,7 @@
 		"@prisma/client": "^4.9.0",
 		"fuse.js": "^6.6.2",
 		"gpt3-tokenizer": "^1.1.5",
+		"lodash": "^4.17.21",
 		"moment": "^2.29.4",
 		"nprogress": "^0.2.0",
 		"openai": "^3.2.1",

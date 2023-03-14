@@ -14,7 +14,7 @@ body {
 }
 
 .btn-p{
-	@apply btn btn-warning;
+	@apply btn btn-warning rounded-none;
 }
 
 

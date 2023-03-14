@@ -13,7 +13,7 @@
 		placeholder="Enter Password"
 		required
 	/>
-	<button class="p-5 bg-black text-white">Login</button>
+	<button class="btn-p">Login</button>
 	{#if form?.invalid}
 	<p class="error text-red-600">You have entered the wrong credentials.</p>
 	{/if}
