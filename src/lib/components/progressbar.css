@@ -2,12 +2,12 @@
 #nprogress {
   pointer-events: none;
   z-index: 20222222222222;
-  background: rgba(0,0,0,.3);
+  background: rgba(255, 255, 255, 0.3);
 }
 
 #nprogress .bar {
   z-index: 222222022222222;
-  background: #000;
+  background: #ffffff;
 
   position: fixed;
   z-index: 1031;
@@ -50,8 +50,8 @@
   z-index: 20222222222222;
 
   border: solid 2px transparent;
-  border-top-color: #000;
-  border-left-color: #000;
+  border-top-color: #ffffff;
+  border-left-color: #d1d1d1;
   border-radius: 50%;
 
   -webkit-animation: nprogress-spinner 400ms linear infinite;
@@ -66,7 +66,7 @@
 
 .nprogress-custom-parent #nprogress .spinner,
 .nprogress-custom-parent #nprogress .bar {
-  position: absolute;  z-index: 20222222222222;
+  position: absolute;  z-index: 2022222222222222;
 }
 
 @-webkit-keyframes nprogress-spinner {

@@ -62,7 +62,7 @@ model FreeCredits {
 model PaymentSessions {
   id        Int      @id @default(autoincrement())
   paymentId String   @unique
-  student   Student  @relation(fields: [studentId], references: [id])
+  student   Student  @relation(fields: [studentId], references: [id],onDelete: Cascade)
   studentId Int
   createdAt DateTime @default(now())
 }

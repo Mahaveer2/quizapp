@@ -8,7 +8,7 @@
   </h1>
   <input class="p-5 w-full border" type='email' name='email' required placeholder="Enter Email"/>
   <input class="p-5 w-full border" type='password' name='password' placeholder="Enter Password" required/>
-  <button class="p-5 bg-black text-white">Login</button>
+  <button class="btn-p">Login</button>
   {#if form?.invalid}
     <p class="error">Username and password is required.</p>
   {/if}

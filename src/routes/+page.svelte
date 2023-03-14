@@ -22,6 +22,7 @@
 
 	const getMessages = async () => {
 		const form = new FormData()
+		load.set(true)
 		form.append('studentId', $page.data.user.userId)
 		const req = await fetch('/api/chat/get', {
 			method: 'POST',
@@ -29,7 +30,6 @@
 		})
 
 		let json = await req.json()
-		load.set(true)
 		const data = json.data.map((data) =>
 			[
 				{ role: 'user', content: data.prompt },
@@ -37,6 +37,7 @@
 			].map(({ role, content }) => ({ role, content }))
 		)
 
+		scrollToBottom();
 		const map2 = [].concat(...data)
 
 		chatMessages = [...chatMessages, ...map2]
@@ -145,8 +146,8 @@
 				class="content absolute top-[20%] pl-[8vw] left-[0] flex flex-col w-full justify-start gap-10"
 			>
 				<img
-					src="/ai.jpg"
-					class="w-[100px] h-[100px] lg:w-[400px] lg:h-[400px] lg:absolute right-[-0px] top-[-10%] z-[-2]"
+					src="/logor.png"
+					class="w-[400px] h-[100px] lg:w-[auto] lg:h-[400px] lg:absolute right-[-200px] top-[-10%] z-[2] p-5 rounded-lg"
 				/>
 				<h1 class="text-black text-6xl font-semibold">Welcome to ProfBot</h1>
 				<p class="text-black max-w-[800px] w-[60vw]">

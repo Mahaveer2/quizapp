@@ -4,10 +4,10 @@
 	let isNav = false;
 </script>
 
-<nav class="flex bg-white justify-center items-center border-b h-[60px] fixed top-0 w-full z-[22]">
+<nav class="flex bg-white justify-center items-center border-b h-[60px] fixed top-0 w-full z-[22] border-yellow-500">
 	<div class="w-[80%] flex justify-between items-center">
-		<a href="/">
-      <h1 class='text-2xl'>Kim</h1>
+		<a href="/" class="overflow-hidden h-[60px]">
+      <img src="/logor.png" class="w-[200px] h-[65px] flex  object-cover"/>
     </a>
 		<button on:click={() => isNav= true} class="bg-black flex justify-center items-center text-xl text-white border-full w-[40px] h-[40px] absolute right-5 rounded-full flex md:hidden">
 			<i class="fa fa-bars"></i>

@@ -42,7 +42,7 @@
 <div class="mt-14 container">
 	<div class="flex justify-between w-full">
 		<h1 class="text-2xl">Account</h1>
-		<button on:click={() => (isModal = true)} class="btn btn-black bg-black"
+		<button on:click={() => (isModal = true)} class="btn btn-accent"
 			>Change Account settings.</button
 		>
 	</div>

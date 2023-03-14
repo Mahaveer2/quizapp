@@ -59,18 +59,18 @@
 		<span class="w-full flex justify-center items-center">Grade</span>
 	</div>
 	<div class="flex w-full gap-2 mb-3 mt-2">
-		<div class="bg-black text-white w-full h-[30px] flex justify-center items-center rounded">
+		<div class="bg-black text-[#fff] w-full h-[30px] flex justify-center items-center rounded">
 			{JSON.parse(score.score).totalQuestions}
 		</div>
 		<div
 			class={`${color(
 				JSON.parse(score.score).totalQuestions,
 				JSON.parse(score.score).score
-			)} text-white w-full h-[30px] flex justify-center items-center rounded`}
+			)} text-[#fff] w-full h-[30px] flex justify-center items-center rounded`}
 		>
 			{JSON.parse(score.score).score}
 		</div>
-		<div class="bg-green-500 text-white w-full h-[30px] flex justify-center items-center rounded">
+		<div class="bg-green-500 text-[#fff] w-full h-[30px] flex justify-center items-center rounded">
 			{JSON.parse(score.score).grade}
 		</div>
 	</div>
@@ -79,7 +79,7 @@
 		<p>Review: {JSON.parse(score.score).review}</p>
 		<p>Tips: {JSON.parse(score.score).tips}</p>
 		{#if average}
-			<div class="bg bg-slate-200 p-3">
+			<div class="bg-yellow-500 p-3">
 				You scored {(average.studentScore / average.averageScore) * 100}% better than other
 				students.
 			</div>

@@ -10,7 +10,7 @@
 <div class="modal" class:modal-open={isModalOpen}>
   <div class="modal-box">
     <div class="flex justify-between items-center w-full">
-      <h3 class="text-lg font-bold">{title}</h3>
+      <h3 class="text-lg font-bold text-white">{title}</h3>
       <button class="text-xl cursor-pointer" on:click={closeModal}>&times;</button>
     </div>
     <slot />

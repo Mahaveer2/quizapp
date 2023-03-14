@@ -5,11 +5,8 @@
 
 html,
 body {
-	@apply h-full;
-}
-
-body {
-	@apply text-black;
+	background: #000 !important;
+	min-height: 100vh;
 }
 
 .container{
@@ -17,17 +14,12 @@ body {
 }
 
 .btn-p{
-	@apply p-3 flex justify-center items-center text-white;
-	background: rgb(0, 0, 0);
-	transition: .2s ease;
+	@apply btn btn-warning;
 }
 
-.btn-p:hover{
-	background: rgb(40, 40, 40);
-}
 
 input,textarea{
-	@apply outline-none focus:ring-1 focus:ring-black;
+	@apply outline-none focus:ring-1 focus:ring-yellow-500 bg-black text-white ;
 }
 
 [aria-busy="true"] {
@@ -142,7 +134,7 @@ left: calc(50% -20px);
 	height: 100vh;
 	position: fixed;
 	top:0;
-	background: rgba(0, 0, 0, 0.8);
+	background: rgba(41, 41, 41, 0.8);
 	z-index: 00;
 	visibility: hidden;
 	transition: .2s ease;
@@ -164,4 +156,38 @@ left: calc(50% -20px);
 .hero-bg{
 	background: url(https://static.vecteezy.com/system/resources/previews/006/430/145/original/technology-background-concept-circuit-board-electronic-system-futuristic-hi-tech-light-on-dark-blue-free-vector.jpg) no-repeat;
 	background-size: cover;
+}
+
+.text-white{
+	color:gold !important;
+}
+
+.bg-white{
+	background: black;
+	color: #fff !important;
+}
+
+table,td,tr,th{
+	background:#000 !important;
+}
+
+.modal-box{
+	background-color: rgb(19, 19, 19);
+}
+
+.label-text{
+	color:#fff !important;
+}
+
+body{
+	background: #000 !important;
+	color: #fff !important;
+}
+
+h1,h2,h3,p{
+	color: #fff !important;
+}
+
+.input{
+	background: #000;
 }

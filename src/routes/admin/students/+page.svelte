@@ -4,6 +4,7 @@
   import Fuse from 'fuse.js';
 	export let data
 	let loading = []
+	let deleteLoad = [];
 	let { students } = data
   let originalStudents = data.students
   let temp = [];
@@ -45,6 +46,8 @@
       return false;
     }
 
+		deleteLoad[index] = true
+
     const data = {id:id}
 
     let req = await fetch("/api/student",{
@@ -53,6 +56,7 @@
     })
 
     let res = await req.json();
+		deleteLoad[index] = false
     if(res.status == 200){
       showMessage({
         _message:"Deleted student succesfully!",
@@ -107,7 +111,7 @@
 								>
 							{/if}
               <button
-									aria-busy={loading[index]}
+									aria-busy={deleteLoad[index]}
 									on:click={() => deleteStudent(student.id, index)}
 									class="btn btn-error">Delete</button
 								>

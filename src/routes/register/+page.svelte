@@ -13,7 +13,7 @@
   <input class="p-5 w-full border" type='text' name='lname' required placeholder="Last Name"/>
 </div>
 <input class="p-5 w-full border" type='password' name='password' placeholder="Enter Password" required/>
-<button class="p-5 bg-black text-white">Submit</button>
+<button class="btn-p">Submit</button>
 {#if form?.invalid}
   <p class="error">Username and password is required.</p>
 {/if}
