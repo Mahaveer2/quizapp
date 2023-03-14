@@ -78,11 +78,11 @@
 			</form>
 		</div>
 	</div>
-	<div class="grid grid-cols-1 lg:grid-cols-3 mt-10 gap-3">
+	<!-- <div class="grid grid-cols-1 lg:grid-cols-3 mt-10 gap-3">
 		{#each scores as score}
 			<TestCard {score} />
 		{/each}
-	</div>
+	</div> -->
 	<Modal title="Change account details" bind:isModalOpen={isModal}>
 		<form on:submit|preventDefault={(e) => handleStudentChange(e)}>
 			<div class="form-control w-full ">

@@ -50,7 +50,7 @@
 			try {
 				loading = false
 				if (e.data === '[DONE]') {
-					if(timeLeft == 300){
+					if(timeLeft == 10){
 						startTimer();
 					}
 					chatMessages = [...chatMessages, { role: 'assistant', content: answer }]
@@ -127,7 +127,7 @@
     return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
   }
 
-	let timeLeft:number = 300;
+	let timeLeft:number = 10;
 
 	const startTimer = () => {
 		let timerId = setInterval(() => {
@@ -169,7 +169,7 @@
 			on:submit|preventDefault={() => handleSubmit()}
 		>
 			<textarea bind:value={query} class="p-5 w-full border" placeholder="Your Answer" />
-			<button disabled={loading} class="disabled:bg-[rgba(0,0,0,.7)] btn-p gap-5" type="submit">
+			<button disabled={loading} class=" btn-p gap-5" type="submit">
 				Send <i class="fa fa-paper-plane" /></button
 			>
 		</form>

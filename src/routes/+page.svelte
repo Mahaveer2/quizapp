@@ -5,6 +5,7 @@
 	import { SSE } from 'sse.js'
 	import { loading as load } from '$lib/store'
 	import { onMount } from 'svelte'
+	import { showMessage } from '$lib/util'
 
 	let query: string = ''
 	let answer: string = ''
@@ -30,17 +31,7 @@
 		})
 
 		let json = await req.json()
-		const data = json.data.map((data) =>
-			[
-				{ role: 'user', content: data.prompt },
-				{ role: 'assistant', content: data.returnMsg }
-			].map(({ role, content }) => ({ role, content }))
-		)
-
 		scrollToBottom();
-		const map2 = [].concat(...data)
-
-		chatMessages = [...chatMessages, ...map2]
 		load.set(false)
 		return json
 	}
@@ -57,6 +48,13 @@
 	}
 
 	const handleSubmit = async () => {
+		if(query.trim() == ""){
+			showMessage({
+				type:"Error",
+				_message:"Please type a valid input!"
+			})
+			return;
+		}
 		loading = true
 		chatMessages = [...chatMessages, { role: 'user', content: query }]
 
@@ -75,7 +73,6 @@
 				loading = false
 				if (e.data === '[DONE]') {
 					chatMessages = [...chatMessages, { role: 'assistant', content: answer }]
-					let q = await handle(query, answer)
 					answer = ''
 					query = ''
 					return
@@ -100,6 +97,10 @@
 		loading = false
 		query = ''
 		answer = ''
+		showMessage({
+			type:"Error",
+			_message:"Error processing your request!"
+		})
 		console.error(err)
 	}
 
@@ -108,10 +109,11 @@
 			load.set(true)
 			getMessages()
 			scrollToBottom()
-			load.set(false)
 			
 			setTimeout(() => {
+				scrollToBottom()
 				objDiv.scrollTop = objDiv.scrollHeight
+				load.set(false)
 			}, 200)
 		}
 	})
@@ -119,7 +121,7 @@
 
 {#if $page.data.user}
 	<div class="flex flex-col pt-4 w-full items-center absolute top-[45px] w-full">
-		<div bind:this={objDiv} class="h-[65vh] w-ful p-4 overflow-y-auto flex flex-col gap-4">
+		<div bind:this={objDiv} class="h-[65vh] w-full p-4 overflow-y-auto flex flex-col gap-4">
 			<div class="flex flex-col gap-2 w-full">
 				<ChatMessage type="assistant" message="Hello, ask me anything you want!" />
 				{#each chatMessages as message}
@@ -136,20 +138,20 @@
 		</div>
 		<form class="flex w-full flex-col  gap-4 p-4" on:submit|preventDefault={() => handleSubmit()}>
 			<input type="text" bind:value={query} class="p-5 w-full border" placeholder="Ask here.." />
-			<button type="submit" class="btn-p gap-5"> Send <i class="fa fa-paper-plane" /></button>
+			<button disabled={loading} type="submit" class="btn-p gap-5"> Send <i class="fa fa-paper-plane" /></button>
 		</form>
 	</div>
 {:else}
 	<div class="flex justify-center items-center flex-col">
 		<div class="w-full  h-[calc(100vh-60px)] relative">
 			<div
-				class="content absolute top-[20%] pl-[8vw] left-[0] flex flex-col w-full justify-start gap-10"
+				class="content absolute top-[30%] pl-[8vw] left-[0] flex flex-col w-full justify-start gap-10"
 			>
 				<img
 					src="/logor.png"
-					class="w-[400px] h-[100px] lg:w-[auto] lg:h-[400px] lg:absolute right-[-200px] top-[-10%] z-[2] p-5 rounded-lg"
+					class="w-[auto] h-[auto] lg:w-[auto] lg:h-[auto] lg:absolute right-[-50px] top-[-40%] z-[2] p-5 rounded-lg"
 				/>
-				<h1 class="text-black text-6xl font-semibold">Welcome to ProfBot</h1>
+				<h1 class="text-black text-5xl ">Welcome to ProfBot</h1>
 				<p class="text-black max-w-[800px] w-[60vw]">
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi quidem mollitia hic?
 					Quis, est quibusdam. Tenetur quaerat consequatur odit veniam provident dolorum quae

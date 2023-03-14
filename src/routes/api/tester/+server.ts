@@ -1,4 +1,4 @@
-import { OPENAI_KEY } from '$env/static/private'
+import { OPENAI_KEY, DOMAIN } from '$env/static/private'
 import type { CreateChatCompletionRequest, ChatCompletionRequestMessage } from 'openai'
 import type { RequestHandler } from './$types'
 import { getTokens } from '$lib/tokenizer'
@@ -36,6 +36,16 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			tokenCount += tokens
 		})
 
+		async function average(testId: number) {
+			let req = await fetch(DOMAIN+"api/student/compare",{
+				method:"POST",
+				body:JSON.stringify({testId:testId})
+			})
+
+			let json = await req.json();
+		return json.averageScore;	
+		}
+
 		const moderationRes = await fetch('https://api.openai.com/v1/moderations', {
 			headers: {
 				'Content-Type': 'application/json',
@@ -70,15 +80,17 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		}
 
 		const prompt: string = `
-		You are a strict and angry examinee,you can be rude, you will conduct a test on the following test data : ${JSON.stringify(
+		You are a strict and angry examinee,you are motivating, you will conduct a test on the following test data : ${JSON.stringify(
 			test_data
-		)};you will ask questions one by one after the users says start ,you will also tell the user about the marks on the question , and at the end you will output a valid json stringified response in the following format :{totalQuestions,score,grade,tips,feedback,review} sorrounded bu backticks and fill according to users score;any user input not related with question will be considered incorrect and at the end of test return a json stringified response sorrounded by only one backtick like"
+		)};you will ask questions one by one after the users says start ,you will also tell the user about the marks on the question , and at the end you will a result with a feedback review score and tips for improving"
 		`
 		tokenCount += getTokens(prompt)
 
 		if (tokenCount >= 4000) {
 			throw new Error('Query too large')
 		}
+
+		const averageScore = await average(test_data.id);
 
 		const messages: ChatCompletionRequestMessage[] = [
 			{ role: 'system', content: prompt },
@@ -93,10 +105,11 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			},
 			{
 				role: 'system',
-				content: `User have 300 seconds of time if the time is over just give the result`
+				content: `The average class score is ${averageScore},at the end of test you will also tell the user that you score is n% better than the class`
 			},
 			...reqMessages
 		]
+
 
 		const chatRequestOpts: CreateChatCompletionRequest = {
 			model: 'gpt-3.5-turbo',
@@ -118,12 +131,6 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			const err = await chatResponse.json()
 			throw new Error(err)
 		}
-
-		// reqMessages.forEach(msg => {
-		// 	if(msg.role == "assistant"){
-		//
-		// 	}
-		// })
 
 		return new Response(chatResponse.body, {
 			headers: {

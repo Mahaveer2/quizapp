@@ -14,7 +14,7 @@ body {
 }
 
 .btn-p{
-	@apply btn btn-warning rounded-none;
+	@apply btn btn-warning rounded-none disabled:bg-yellow-800 disabled:text-black;
 }
 
 

@@ -9,9 +9,11 @@ export async function load({params,locals}){
     }
   })
 
+  const tests = await client.test.findMany({})
+
   if (!locals.user) {
     throw redirect(302, '/')
   } 
 
-  return {user}
+  return {user,tests}
 }

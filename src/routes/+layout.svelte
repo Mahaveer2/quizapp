@@ -11,6 +11,7 @@
 	if ($page.url.pathname.includes('admin')) {
 		isAdmin = true
 	}
+
 	
 </script>
 

@@ -22,7 +22,7 @@
 				<NavLink title="Account" href="/account" />
 				<form action="/logout" method="POST" class="w-full">
 					<button
-						class="w-full flex justify-center items-center h-[50px] text-[rgba(0,0,0,.5)] gap-2 w-full hover:text-[rgba(0,0,0,1)]"
+						class="w-full flex justify-center items-center h-[50px] text-[rgba(255,255,255,.5)] gap-2 w-full hover:text-[rgba(255,255,255,1)]"
 						type="submit"
 					>
 						<i class="fa fa-sign-out" />
