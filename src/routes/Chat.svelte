@@ -145,20 +145,19 @@ query = '';
 	<div class="flex justify-center items-center flex-col">
 		<div class="w-full  h-[calc(100vh-60px)] relative">
 			<div
-				class="content absolute top-[30%] pl-[8vw] left-[0] flex flex-col w-full justify-start gap-10 p-3"
+				class="content absolute top-[50%] pl-[8vw] left-[0] flex flex-col w-full justify-start gap-10 "
 			>
 				<img
-					src="/logosm.webp"
-					class="w-[auto] h-[250px] lg:w-[250px] rounded-xl lg:h-[auto] lg:absolute lg:right-[50px] top-[0%] z-[2] p-5 rounded-lg mr-12"
+					src="/logor.png"
+					class="w-[auto] h-[auto]  md:max-w-[500px] max-w-[300px] p-0 m-0 absolute left-0 md:top-[-200px] top-[-120px]"
 				/>
-				<h1 class="text-black text-5xl ">Welcome to ProfBot</h1>
-				<p class="text-black max-w-[550px] lg:w-[60vw]">
+				<p class="text-black max-w-[400px] md:max-w-[600px] lg:w-[60vw] text-xl">
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi quidem mollitia hic?
 					Quis, est quibusdam. Tenetur quaerat consequatur odit veniam provident dolorum quae
 					nesciunt unde cum nobis voluptatem, corporis quia.
 				</p>
 				<a href="/login" class="btn-p w-[200px]"> Get Started </a>
-				<h1>How it works.</h1>
+				
 			</div>
 		</div>
 	</div>

@@ -1,19 +1,31 @@
 <script>
 	import NavLink from './NavLink.svelte'
 	import { page } from '$app/stores'
-	let isNav = false;
+	let isNav = false
 </script>
 
-<nav class="flex bg-white justify-center items-center border-b h-[60px] fixed top-0 w-full z-[22] border-yellow-500">
+<nav
+	class="flex bg-white justify-center items-center border-b h-[60px] fixed top-0 w-full z-[22] border-yellow-500"
+>
 	<div class="w-[80%] flex justify-between items-center">
 		<a href="/" class="overflow-hidden h-[60px]">
-      <img src="/logor.png" class="w-[200px] h-[65px] flex  object-cover"/>
-    </a>
-		<button on:click={() => isNav= true} class="bg-black flex justify-center items-center text-xl text-white border-full w-[40px] h-[40px] absolute right-5 rounded-full flex md:hidden">
-			<i class="fa fa-bars"></i>
+			<img src="/logor.png" class="w-[200px] h-[65px] flex  object-cover" />
+		</a>
+		<button
+			on:click={() => (isNav = true)}
+			class="bg-black flex justify-center items-center text-xl text-white border-full w-[40px] h-[40px] absolute right-5 rounded-full flex md:hidden"
+		>
+			<i class="fa fa-bars" />
 		</button>
-		<div class={`flex justify-between md:w-[400px] flex-col md:flex-row md:relative fixed top-0 left-0 w-full md:h-[auto] h-[100vh] bg-white items-center md:p-0 p-10 md:text-base text-2xl md:flex ${isNav ? "flex":"hidden"}`}> 
-			<button on:click={() => isNav= false} class="bg-black flex justify-center items-center text-xl text-white border-full w-[40px] h-[40px] absolute right-5 top-2 rounded-full flex md:hidden">
+		<div
+			class={`flex justify-between md:w-[400px] flex-col md:flex-row md:relative fixed top-0 left-0 w-full md:h-[auto] h-[100vh] bg-white items-center md:p-0 px-10 py-[200px] md:text-base text-2xl md:flex ${
+				isNav ? 'flex' : 'hidden'
+			}`}
+		>
+			<button
+				on:click={() => (isNav = false)}
+				class="bg-black flex justify-center items-center text-xl text-white border-full w-[40px] h-[40px] absolute right-5 top-2 rounded-full flex md:hidden"
+			>
 				&times;
 			</button>
 			<NavLink title="Home" href="/" />
@@ -26,7 +38,7 @@
 						type="submit"
 					>
 						<i class="fa fa-sign-out" />
-		
+
 						<span class="hidden lg:block">Logout</span>
 					</button>
 				</form>
