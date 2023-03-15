@@ -30,17 +30,27 @@
 	//   })
 	// })
 	let newAnswer: string = ''
-	let isTimeOver : boolean = false;
+	let isTimeOver: boolean = false
 
 	const handleSubmit = async () => {
 		loading = true
+		if(query == ""){
+			showMessage({
+				type:"Error",
+				_message:"Please enter a valid input."
+			})
+		}
 		chatMessages = [...chatMessages, { role: 'user', content: query }]
-
+		query = ''
 		const eventSource = new SSE('/api/tester', {
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			payload: JSON.stringify({ messages: chatMessages, shareLink: $page.params.link,isTimeOver:isTimeOver })
+			payload: JSON.stringify({
+				messages: chatMessages,
+				shareLink: $page.params.link,
+				isTimeOver: isTimeOver
+			})
 		})
 
 		eventSource.addEventListener('error', handleError)
@@ -50,8 +60,8 @@
 			try {
 				loading = false
 				if (e.data === '[DONE]') {
-					if(timeLeft == 10){
-						startTimer();
+					if (timeLeft == 300) {
+						startTimer()
 					}
 					chatMessages = [...chatMessages, { role: 'assistant', content: answer }]
 					try {
@@ -94,7 +104,6 @@
 						}
 					} catch (e) {}
 					answer = ''
-					query = ''
 					console.log(e.data)
 					return
 				}
@@ -122,21 +131,47 @@
 	}
 
 	function formatTime(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-  }
+		const minutes = Math.floor(seconds / 60)
+		const remainingSeconds = seconds % 60
+		return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`
+	}
 
-	let timeLeft:number = 10;
-
+	let timeLeft: number = 300
+	let credits = $page.data.user.credits
 	const startTimer = () => {
 		let timerId = setInterval(() => {
-      timeLeft--;
-      if (timeLeft === 0) {
-        clearInterval(timerId);
-      }
-    }, 1000);
-	};
+			timeLeft--
+			if (timeLeft === 0) {
+				fetch('/api/student/reduce', {
+					method: 'POST',
+					body: JSON.stringify({ id: $page.data.user.userId })
+				})
+					.then((msg) => msg.json())
+					.then((res) => {
+						if (credits <= 0) {
+							showMessage({
+								_message: 'No credits left buy more from account or wait another week.',
+								type: 'Error'
+							})
+							loading = true
+						}
+						if (res.status == 200) {
+							credits--
+							showMessage({
+								_message: 'Credit used.',
+								type: 'success'
+							})
+						} else {
+							showMessage({
+								_message: 'An error occured!',
+								type: 'Error'
+							})
+						}
+					})
+				clearInterval(timerId)
+			}
+		}, 1000)
+	}
 
 	onMount(async () => {
 		if ($page.data.user) {
@@ -147,7 +182,9 @@
 
 {#if $page.data.user}
 	<div class="flex flex-col pt-4 w-full items-center absolute top-[45px]">
-		<h1 class="my-4 text-sm absolute top-2 bg-[rgba(255,255,255,.25)] p-3 rounded-full">{formatTime(timeLeft)} left</h1>
+		<h1 class="my-4 text-sm absolute top-2 bg-[rgba(255,255,255,.25)] p-3 rounded-full">
+			{formatTime(timeLeft)} left
+		</h1>
 		<div class="h-[63vh] w-full p-4 overflow-y-auto flex flex-col gap-4">
 			<div class="flex flex-col gap-2">
 				<ChatMessage type="assistant" message="Type start to continue start" />

@@ -46,7 +46,7 @@
 			>Change Account settings.</button
 		>
 	</div>
-	<div class="w-full bg-black text-white flex justify-center p-5 mt-10 flex-col gap-5">
+	<div class="w-full bg-black text-white flex justify-center p-5 mt-10 flex-col gap-5 border border-white">
 		<h1 class="text-3xl ">Credits</h1>
 		<h3 class="text-xl">
 			{credits} credits.

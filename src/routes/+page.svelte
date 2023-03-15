@@ -57,7 +57,7 @@
 		}
 		loading = true
 		chatMessages = [...chatMessages, { role: 'user', content: query }]
-
+query = '';
 		const eventSource = new SSE('/api/chat', {
 			headers: {
 				'Content-Type': 'application/json'
@@ -68,13 +68,13 @@
 		eventSource.addEventListener('error', handleError)
 
 		eventSource.addEventListener('message', async (e) => {
+			
 			scrollToBottom()
 			try {
 				loading = false
 				if (e.data === '[DONE]') {
 					chatMessages = [...chatMessages, { role: 'assistant', content: answer }]
 					answer = ''
-					query = ''
 					return
 				}
 
