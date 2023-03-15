@@ -6,7 +6,7 @@ export const load: PageServerLoad = async ({ locals }) => {
   // redirect user if logged in
   if (locals.admin) {
     
-    throw redirect(302, '../')
+    throw redirect(302, '/admin')
   }
 }
 

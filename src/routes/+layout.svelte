@@ -5,12 +5,15 @@
 	import Navbar from '$lib/components/Navbar.svelte'
 	import Transition from '$lib/components/Transition.svelte'
 	import TopLoader from '$lib/components/TopLoader.svelte'
+	import Chat from './Chat.svelte'
 
 	let isAdmin = false
 
 	if ($page.url.pathname.includes('admin')) {
 		isAdmin = true
 	}
+
+	console.log($page.url.pathname)
 
 	
 </script>
@@ -45,3 +48,6 @@
 		</Transition>
 	</div>
 	{/if}
+	<div class={`${$page.url.pathname == "/" ? "":"hidden"}`}>
+		<Chat/>
+	</div>

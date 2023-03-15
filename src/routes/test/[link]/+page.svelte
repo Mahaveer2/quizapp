@@ -182,7 +182,7 @@
 
 {#if $page.data.user}
 	<div class="flex flex-col pt-4 w-full items-center absolute top-[45px]">
-		<h1 class="my-4 text-sm absolute top-2 bg-[rgba(255,255,255,.25)] p-3 rounded-full">
+		<h1 class="my-4 text-sm absolute top-2 bg-[#232323] p-3 rounded-full">
 			{formatTime(timeLeft)} left
 		</h1>
 		<div class="h-[63vh] w-full p-4 overflow-y-auto flex flex-col gap-4">

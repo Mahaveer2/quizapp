@@ -25,17 +25,17 @@
 	})
 
 	interface Question {
-		questionText: string;
-		correctAnswer: string;
-		marks:number;
+		questionText: string
+		correctAnswer: string
+		marks: number
 	}
 
-	let questions: Question[] = [];
+	let questions: Question[] = []
 
 	let currentQuestion: Question = {
 		questionText: '',
 		correctAnswer: '',
-		marks:1,
+		marks: 1
 	}
 
 	const pushQuestion = () => {
@@ -44,7 +44,7 @@
 		currentQuestion = {
 			questionText: '',
 			correctAnswer: '',
-			marks:1,
+			marks: 1
 		}
 		isModalOpen = false
 	}
@@ -60,12 +60,12 @@
 		const form = new FormData(e.target)
 		form.append('questions', JSON.stringify(questions))
 
-		if(form.get("name")?.toString().trim() == ""){
+		if (form.get('name')?.toString().trim() == '') {
 			showMessage({
-				_message:"Please enter a valid name.",
-				type:"Error"
-			});
-			return;
+				_message: 'Please enter a valid name.',
+				type: 'Error'
+			})
+			return
 		}
 
 		if (questions.length <= 0) {
@@ -74,7 +74,7 @@
 		}
 
 		try {
-			loading.set(true);
+			loading.set(true)
 			let req = await fetch('/api/test/add', {
 				method: 'POST',
 				body: form
@@ -83,10 +83,10 @@
 			let res = await req.json()
 
 			if (res.success) {
+				loading.set(false)
 				alert('Created Succesfully!')
 				questions = []
-				form.clear();
-				loading.set(false);
+				form.clear()
 			}
 		} catch (e) {
 			console.error(e)
@@ -107,7 +107,7 @@
 			required
 			placeholder="Enter Test Name"
 		/>
-		<button type="submit" class="btn-p h-[65px] p-5">Create</button>
+		<button type="submit" class="btn-p h-[80px]">Create</button>
 	</form>
 	<section class="mt-10 gap-3">
 		{#each questions as question, index}
@@ -143,7 +143,7 @@
 						class="input input-bordered w-full "
 						bind:value={questions[index].correctAnswer}
 					/>
-				</div> 
+				</div>
 				<div class="form-control w-full ">
 					<label class="label">
 						<span class="label-text">Marks</span>

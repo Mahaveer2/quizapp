@@ -57,6 +57,9 @@
 </div>
 <h1 class="text-2xl mt-10 text-center">Available tests</h1>
 <div class="grid grid-cols-1 lg:grid-cols-3 mt-2 container gap-5 ">
+	{#if tests.length <= 0}
+	No tests found...
+	{/if}
 	{#each tests as test}
 	<a href={`test/${test.shareLink}`} class="bg-[rgba(255,255,255,.25)] py-3 px-10 rounded cursor-pointer hover:bg-[rgba(255,255,255,.4)]" >
 		<h1 class="text-xl ">{test.name}</h1>
