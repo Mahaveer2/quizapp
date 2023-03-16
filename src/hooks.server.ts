@@ -2,6 +2,7 @@ import type { Handle } from '@sveltejs/kit'
 import { client } from '$lib/database'
 import moment from 'moment'
 
+export const config = { runtime: 'edge' };
 export const handle: Handle = async ({ event, resolve }) => {
 	// get cookies from browser
 	const session = event.cookies.get('session')
