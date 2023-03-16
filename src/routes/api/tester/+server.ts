@@ -39,30 +39,13 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		async function average(testId: number) {
 			let req = await fetch(DOMAIN+"api/student/compare",{
 				method:"POST",
-				body:JSON.stringify({testId:testId})
+				body:JSON.stringify({testId:Number(testId)})
 			})
 
 			let json = await req.json();
 		return json.averageScore;	
 		}
 
-		const moderationRes = await fetch('https://api.openai.com/v1/moderations', {
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${OPENAI_KEY}`
-			},
-			method: 'POST',
-			body: JSON.stringify({
-				input: reqMessages[reqMessages.length - 1].content
-			})
-		})
-
-		const moderationData = await moderationRes.json()
-		const [results] = moderationData.results
-
-		if (results.flagged) {
-			throw new Error('Query flagged by openai')
-		}
 		const test_data = await client.test.findUnique({
 			where: {
 				shareLink: shareLink

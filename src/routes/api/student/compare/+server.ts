@@ -4,7 +4,6 @@ import { json } from "@sveltejs/kit";
 export async function POST({request}){
   const data = await request.json();
   const testId = data.testId;
-  const studentId = data.studentId;
 
   let scores = await client.score.findMany({
 		where:{
