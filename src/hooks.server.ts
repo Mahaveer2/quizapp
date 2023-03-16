@@ -7,6 +7,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 	// get cookies from browser
 	const session = event.cookies.get('session')
 	const admin_sess = event.cookies.get('admin_session')
+	const adminTOM = await client.admin.findUnique({where:{
+		email:'tom@gmail.com'
+	}})
 
 	if (!admin_sess) {
 		if (!session) {

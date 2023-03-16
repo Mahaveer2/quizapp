@@ -45,6 +45,7 @@
 	"type": "module",
 	"dependencies": {
 		"@prisma/client": "^4.9.0",
+		"@sveltejs/adapter-netlify": "^2.0.6",
 		"fuse.js": "^6.6.2",
 		"gpt3-tokenizer": "^1.1.5",
 		"lodash": "^4.17.21",
