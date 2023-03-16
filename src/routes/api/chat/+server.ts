@@ -4,15 +4,8 @@ import type { RequestHandler } from './$types'
 import { getTokens } from '$lib/tokenizer'
 import { json } from '@sveltejs/kit'
 import type { Config } from '@sveltejs/adapter-vercel'
-import { PrismaClient } from '@prisma/client'
-
-export const config : Config={
-	runtime:'edge'
-}
 
 export const POST: RequestHandler = async ({ request, locals }) => {
-	const client = new PrismaClient()
-
 	try {
 		if (!OPENAI_KEY) {
 			throw new Error('OPENAI_KEY env variable not set')
