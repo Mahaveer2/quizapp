@@ -1,6 +1,3 @@
 {
-  "framework": "sveltekit",
-  "functions": {
-   
-  }
+  "framework": "sveltekit"
 }
