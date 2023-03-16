@@ -25,9 +25,9 @@
 	})
 
 	interface Question {
-		questionText: string
-		correctAnswer: string
-		marks: number
+		questionText: string;
+		correctAnswer: string;
+		marks: number;
 	}
 
 	let questions: Question[] = []
