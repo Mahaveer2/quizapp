@@ -24,6 +24,9 @@ export const POST: RequestHandler = async ({ request }) => {
 			temperature: 1,
 			stream: true
 		}
+    let timeTakento :number = 0;
+
+    setInterval(() => timeTakento++,1000)
 
 		const { body } = await fetch('https://api.openai.com/v1/chat/completions', {
 			headers: {
@@ -33,6 +36,7 @@ export const POST: RequestHandler = async ({ request }) => {
 			method: 'POST',
 			body: JSON.stringify(chatRequestOpts)
 		})
+    console.log(timeTakento)
 
 		return new Response(body, {
 			headers: {
