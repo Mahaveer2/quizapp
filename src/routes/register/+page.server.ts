@@ -10,38 +10,61 @@ export const load: PageServerLoad = async ({ locals }) => {
 	}
 }
 
+function validateEmail(email: string) {
+	const domain = '@torontoMU.ca'
+	return email.endsWith(domain)
+}
+
 const register: Action = async ({ cookies, request }) => {
 	const data = await request.formData()
-	const email = data.get('email')
-  const fname = data.get('fname')
-  const lname = data.get('lname')
-	const password = data.get('password')
+	const email: string = String(data.get('email'))
+	const fname: string = String(data.get('fname'))
+	const lname: string = String(data.get('lname'))
+	const password: string = String(data.get('password'))
 
-  const alreadyExists = await client.student.findUnique({where:{email:email}})
+	const alreadyExists = await client.student.findUnique({ where: { email: email } })
 
-  if(alreadyExists){
-    return fail(400, { credentials: true })
-  }
+	if (alreadyExists) {
+		return fail(400, { credentials: true })
+	}
 
-	function validateEmail(email:string) {
+	if (!validateEmail(email)) {
+		return fail(500, { invalidEmail: true })
+	}
+
+	function validateEmail(email: string) {
 		const regex = /^[^\s@]+@torontoMU\.ca$/i
 		return regex.test(email)
 	}
 
 	if (typeof email !== 'string' || typeof password !== 'string' || !email || !password) {
 		return fail(400, { invalid: true })
-	
-  }
+	}
 
-  const user = await client.student.create({
-    data:{
-      email:email,
-      firstName:fname,
-      lastName:lname,
-			password:password,
-      userAuthToken: crypto.randomUUID(),
-    }
-  })
+	const user = await client.student.create({
+		data: {
+			email: email,
+			firstName: fname,
+			lastName: lname,
+			password: password,
+			userAuthToken: crypto.randomUUID(),
+			verified:true
+		}
+	})
+
+	cookies.set('session', user.userAuthToken, {
+		// send cookie for every page
+		path: '/',
+		// server side only cookie so you can't use `document.cookie`
+		httpOnly: true,
+		// only requests from same site can send cookies
+		// https://developer.mozilla.org/en-US/docs/Glossary/CSRF
+		// sameSite: 'strict',
+		// only sent over HTTPS in production
+		secure: process.env.NODE_ENV === 'production',
+		// set cookie to expire after a month
+		maxAge: 60 * 60 * 24 * 30
+	})
 
 	// redirect the user
 	throw redirect(302, '/')

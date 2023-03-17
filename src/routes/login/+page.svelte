@@ -10,11 +10,11 @@
   <input class="p-5 w-full border" type='password' name='password' placeholder="Enter Password" required/>
   <button class="btn-p">Login</button>
   {#if form?.invalid}
-    <p class="error">Username and password is required.</p>
+  <p class="bg-[rgba(255,255,255,.1)] p-3" style="color:rgba(250,100,100) !important">Username and password is required.</p>
   {/if}
 
   {#if form?.credentials}
-    <p class="error text-red-600">You have entered the wrong credentials.</p>
+  <p class="bg-[rgba(255,255,255,.1)] p-3" style="color:rgba(250,100,100) !important">You have entered the wrong credentials.</p>
   {/if}
 </form>
 </div>

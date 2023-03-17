@@ -191,3 +191,7 @@ h1,h2,h3,p{
 .input{
 	background: #000;
 }
+
+a{
+	@apply text-yellow-600
+}
