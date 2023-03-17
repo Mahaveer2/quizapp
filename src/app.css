@@ -9,49 +9,49 @@ body {
 	min-height: 100vh;
 }
 
-.container{
+.container {
 	@apply w-[80%] mx-auto pt-10;
 }
 
-.btn-p{
+.btn-p {
 	@apply btn btn-warning rounded-none disabled:bg-yellow-800 disabled:text-black;
 }
 
-
-input,textarea{
-	@apply outline-none focus:ring-1 focus:ring-yellow-500 bg-black text-white ;
+input,
+textarea {
+	@apply outline-none focus:ring-1 focus:ring-yellow-500 bg-black text-white;
 }
 
-[aria-busy="true"] {
+[aria-busy='true'] {
 	position: relative;
 }
 
-[aria-busy="true"]:before {
+[aria-busy='true']:before {
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
 	background: #999999;
-	opacity: .3;
+	opacity: 0.3;
 	display: block;
-	content: "";
+	content: '';
 	z-index: 10000;
 }
 
-[aria-busy="true"]:after {
+[aria-busy='true']:after {
 	position: absolute;
-	 content: "";
+	content: '';
 	width: 25px;
 	height: 25px;
-top: 20%;
-transform: translate(-50%,-50%);
-left: calc(50% -20px);
+	top: 20%;
+	transform: translate(-50%, -50%);
+	left: calc(50% -20px);
 
-	-webkit-animation: circle infinite .75s linear;
-		 -moz-animation: circle infinite .75s linear;
-			 -o-animation: circle infinite .75s linear;
-					animation: circle infinite .75s linear;
+	-webkit-animation: circle infinite 0.75s linear;
+	-moz-animation: circle infinite 0.75s linear;
+	-o-animation: circle infinite 0.75s linear;
+	animation: circle infinite 0.75s linear;
 
 	border: 2px solid #fff;
 	border-top-color: rgb(197, 197, 197);
@@ -60,138 +60,133 @@ left: calc(50% -20px);
 	border-radius: 100%;
 }
 
-@-webkit-keyframes circle
-{
-	0%
-	{
-			-webkit-transform: rotate(0);
-					-ms-transform: rotate(0);
-					 -o-transform: rotate(0);
-							transform: rotate(0);
+@-webkit-keyframes circle {
+	0% {
+		-webkit-transform: rotate(0);
+		-ms-transform: rotate(0);
+		-o-transform: rotate(0);
+		transform: rotate(0);
 	}
-	100%
-	{
-			-webkit-transform: rotate(360deg);
-					-ms-transform: rotate(360deg);
-					 -o-transform: rotate(360deg);
-							transform: rotate(360deg);
+	100% {
+		-webkit-transform: rotate(360deg);
+		-ms-transform: rotate(360deg);
+		-o-transform: rotate(360deg);
+		transform: rotate(360deg);
 	}
 }
-@-moz-keyframes circle
-{
-	0%
-	{
-			-webkit-transform: rotate(0);
-					-ms-transform: rotate(0);
-					 -o-transform: rotate(0);
-							transform: rotate(0);
+@-moz-keyframes circle {
+	0% {
+		-webkit-transform: rotate(0);
+		-ms-transform: rotate(0);
+		-o-transform: rotate(0);
+		transform: rotate(0);
 	}
-	100%
-	{
-			-webkit-transform: rotate(360deg);
-					-ms-transform: rotate(360deg);
-					 -o-transform: rotate(360deg);
-							transform: rotate(360deg);
+	100% {
+		-webkit-transform: rotate(360deg);
+		-ms-transform: rotate(360deg);
+		-o-transform: rotate(360deg);
+		transform: rotate(360deg);
 	}
 }
-@-o-keyframes circle
-{
-	0%
-	{
-			-webkit-transform: rotate(0);
-					-ms-transform: rotate(0);
-					 -o-transform: rotate(0);
-							transform: rotate(0);
+@-o-keyframes circle {
+	0% {
+		-webkit-transform: rotate(0);
+		-ms-transform: rotate(0);
+		-o-transform: rotate(0);
+		transform: rotate(0);
 	}
-	100%
-	{
-			-webkit-transform: rotate(360deg);
-					-ms-transform: rotate(360deg);
-					 -o-transform: rotate(360deg);
-							transform: rotate(360deg);
+	100% {
+		-webkit-transform: rotate(360deg);
+		-ms-transform: rotate(360deg);
+		-o-transform: rotate(360deg);
+		transform: rotate(360deg);
 	}
 }
-@keyframes circle
-{
-	0%
-	{
-			-webkit-transform: rotate(0);
-					-ms-transform: rotate(0);
-					 -o-transform: rotate(0);
-							transform: rotate(0);
+@keyframes circle {
+	0% {
+		-webkit-transform: rotate(0);
+		-ms-transform: rotate(0);
+		-o-transform: rotate(0);
+		transform: rotate(0);
 	}
-	100%
-	{
-			-webkit-transform: rotate(360deg);
-					-ms-transform: rotate(360deg);
-					 -o-transform: rotate(360deg);
-							transform: rotate(360deg);
+	100% {
+		-webkit-transform: rotate(360deg);
+		-ms-transform: rotate(360deg);
+		-o-transform: rotate(360deg);
+		transform: rotate(360deg);
 	}
 }
 
-.loader{
+.loader {
 	width: 100%;
 	height: 100vh;
 	position: fixed;
-	top:0;
+	top: 0;
 	background: rgba(41, 41, 41, 0.8);
 	z-index: 00;
 	visibility: hidden;
-	transition: .2s ease;
+	transition: 0.2s ease;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.loader svg{
-	width:100px;
+.loader svg {
+	width: 100px;
 }
 
-.loader.active{
+.loader.active {
 	visibility: visible;
 	opacity: 1;
 	z-index: 100000;
 }
 
-.hero-bg{
-	background: url(https://static.vecteezy.com/system/resources/previews/006/430/145/original/technology-background-concept-circuit-board-electronic-system-futuristic-hi-tech-light-on-dark-blue-free-vector.jpg) no-repeat;
+.hero-bg {
+	background: url(https://static.vecteezy.com/system/resources/previews/006/430/145/original/technology-background-concept-circuit-board-electronic-system-futuristic-hi-tech-light-on-dark-blue-free-vector.jpg)
+		no-repeat;
 	background-size: cover;
 }
 
-.text-white{
-	color:gold !important;
+.text-white {
+	color: gold !important;
 }
 
-.bg-white{
+.bg-white {
 	background: black;
 	color: #fff !important;
 }
 
-table,td,tr,th{
-	background:#000 !important;
+table,
+td,
+tr,
+th {
+	background: #000 !important;
 }
 
-.modal-box{
+.modal-box {
 	background-color: rgb(19, 19, 19);
 }
 
-.label-text{
-	color:#fff !important;
+.label-text {
+	color: #fff !important;
 }
 
-body{
+body {
 	background: #000 !important;
 	color: #fff !important;
 }
 
-h1,h2,h3,p{
+h1,
+h2,
+h3,
+p {
 	color: #fff !important;
 }
 
-.input{
+.input {
 	background: #000;
 }
 
-a{
-	@apply text-yellow-600
+a {
+	@apply text-yellow-400;
 }

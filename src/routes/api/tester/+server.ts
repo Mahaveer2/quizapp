@@ -90,6 +90,14 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 				role: 'system',
 				content: `The average class score is ${averageScore},at the end of test you will also tell the user that you score is n% better than the class`
 			},
+			{
+				role:'system',
+				content:"if the user asks if there is any time limit you tell him there a time limit for the session credit which is 10minutes"
+			},
+			{
+				role:'system',
+				content:'you should check answers and give marks precisely!'
+			},
 			...reqMessages
 		]
 

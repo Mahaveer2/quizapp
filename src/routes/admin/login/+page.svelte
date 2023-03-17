@@ -3,8 +3,7 @@
 </script>
 <div class="flex justify-center items-center flex-col mt-14">
 <form method="POST" action="?/logadmin" class="flex flex-col gap-5 mt-[100px] w-[70%]">
-	Sign up below with demo email <br> Email:<strong>tom@gmail.com</strong>
-	Password:<strong>admin</strong>
+	<h1 class="text-2xl p-2">Login</h1>
 	<input class="p-5 w-full border" type="email" name="email" required placeholder="Enter Email" />
 	<input
 		class="p-5 w-full border"
