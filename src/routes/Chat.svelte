@@ -142,22 +142,14 @@ query = '';
 		</form>
 	</div>
 {:else}
-	<div class="flex justify-center items-center flex-col">
-		<div class="w-full  h-[calc(100vh-60px)] relative">
-			<div
-				class="content absolute top-[50%] pl-[8vw] left-[0] flex flex-col w-full justify-start gap-10 "
-			>
-				<img
-					src="/logor.png"
-					class="w-[auto] h-[auto]  md:max-w-[500px] max-w-[300px] p-0 m-0 absolute left-0 md:top-[-200px] top-[-120px]"
-				/>
-				<p class="text-black max-w-[400px] md:max-w-[600px] lg:w-[60vw] text-xl">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi quidem mollitia hic?
-					Quis, est quibusdam. Tenetur quaerat consequatur odit veniam provident dolorum quae
-					nesciunt unde cum nobis voluptatem, corporis quia.
-				</p>
-				<a href="/login" class="btn-p w-[200px]"> Get Started </a>
-				
+	<div class="flex items-center mt-[60px] flex-co z-[23232] h-[100vh] w-full justify-center">
+		<div class="container flex justify-between">
+			<div class="left w-[500px] relative">
+				<img src="/logor.png" class="w-[500px] absolute left-[-20%] top-[-190px]"/>
+				<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro nihil asperiores exercitationem? Reprehenderit vitae cumque quisquam natus eaque amet omnis quo ut error odit temporibus et rerum sunt, dicta odio aut! Rem, dolor? Sequi nesciunt dolorum eveniet, provident earum quos, architecto nulla doloribus in, pariatur inventore non deleniti labore obcaecati?</p>
+			</div>
+			<div class="mt-[-100px] hidden md:block">
+				<img src="/logosm.webp" class="w-[200px] h-[200px] rounded"/>
 			</div>
 		</div>
 	</div>
