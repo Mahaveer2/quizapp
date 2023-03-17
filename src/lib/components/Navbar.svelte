@@ -18,7 +18,7 @@
 			<i class="fa fa-bars" />
 		</button>
 		<div
-			class={`flex justify-between md:w-[400px] flex-col md:flex-row md:relative fixed top-0 left-0 w-full md:h-[auto] h-[100vh] bg-white items-center md:p-0 px-10 py-[200px] md:text-base text-2xl md:flex ${
+			class={`flex justify-between md:w-[500px] flex-col md:flex-row md:relative fixed top-0 left-0 w-full md:h-[auto] h-[100vh] bg-white items-center md:p-0 px-10 py-[200px] md:text-base text-2xl md:flex ${
 				isNav ? 'flex' : 'hidden'
 			}`}
 		>
@@ -29,6 +29,7 @@
 				&times;
 			</button>
 			<NavLink title="Home" href="/" />
+			<NavLink title="How it works" href="/about" />
 			{#if $page.data.user}
 				<NavLink title="Test" href="/test" />
 				<NavLink title="Account" href="/account" />
