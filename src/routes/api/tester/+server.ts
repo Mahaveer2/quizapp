@@ -84,7 +84,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			},
 			{
 				role: 'system',
-				content: `the user have ${locals.user.credits} after the test and when you give review subtract one from it if the credits are 0 say him to buy the credits from the account page`
+				content: `the user have ${locals?.user?.credits || 100} after the test and when you give review subtract one from it if the credits are 0 say him to buy the credits from the account page`
 			},
 			{
 				role: 'system',

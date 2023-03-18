@@ -137,7 +137,12 @@
 	}
 
 	let timeLeft: number = 600
-	let credits = $page.data.user.credits
+	let credits;
+	if($page.data.admin){
+		credits = 5;
+	}else{
+		credits = $page.data?.user?.credits;
+	}
 	const startTimer = () => {
 		let timerId = setInterval(() => {
 			timeLeft--
@@ -180,7 +185,6 @@
 	})
 </script>
 
-{#if $page.data.user}
 	<div class="flex flex-col pt-4 w-full items-center absolute top-[45px]">
 		<h1 class="my-4 text-sm absolute top-2 bg-yellow-500 p-3 rounded-full">
 			{formatTime(timeLeft)} left
@@ -211,9 +215,3 @@
 			>
 		</form>
 	</div>
-{:else}
-	<a href="/login" class="mt-[100px] p-3 flex justify-center items-center bg-black text-white"
-		>Login to Continue</a
-	>
-	<p>This is just a prototype of your requirements.</p>
-{/if}

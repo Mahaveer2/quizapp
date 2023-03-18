@@ -4,7 +4,7 @@ import { error, redirect } from '@sveltejs/kit'
 export async function load({ params, locals }) {
 	const link = params.link
 
-	if(locals.user.credits <= 0){
+	if(!locals.admin && locals.user.credits <= 0){
 		throw error(500,"Not enough credits!")
 	}
 
@@ -17,7 +17,7 @@ export async function load({ params, locals }) {
 		}
 	})
 
-	if (!test || !locals.user || locals.user.credits <= 0) {
+	if (!test || !locals.admin && !locals.user) {
 		throw redirect(302, '/')
 	}
 

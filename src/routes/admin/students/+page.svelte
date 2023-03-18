@@ -5,6 +5,7 @@
 	export let data
 	let loading = []
 	let deleteLoad = [];
+	let creditLoad = [];
 	let { students } = data
   let originalStudents = data.students
   let temp = [];
@@ -39,6 +40,33 @@
 		loading[index] = false
 		students[index].verified = !students[index].verified
 		students = students
+	}
+
+	const addCredit = async (id,index) => {
+		creditLoad[index]=true;
+		const data = {id:id}
+
+    let req = await fetch("/api/student/add",{
+      method:"POST",
+      body:JSON.stringify(data)
+    })
+
+		students[index].credits++;
+
+    let res = await req.json();
+		creditLoad[index]=false;
+    if(res.status == 200){
+      showMessage({
+        _message:"Added token succesfully!",
+        type:"success"
+      });
+    }else{
+      showMessage({
+        _message:req.message,
+        type:"Error"
+      });
+      return false;
+    }
 	}
 
   const deleteStudent = async(id,index) => {
@@ -86,7 +114,8 @@
 					<th>Email</th>
 					<th>First Name</th>
 					<th>Last Name</th>
-					<th>Verified</th>
+					<th>Credits</th>
+					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -96,7 +125,13 @@
 						<td>{student.email}</td>
 						<td>{student.firstName}</td>
 						<td>{student.lastName}</td>
+						<td>{student.credits}</td>
 						<td>
+							<button
+									aria-busy={creditLoad[index]}
+									on:click={() => addCredit(student.id, index)}
+									class="btn btn-black">Add Credit</button
+								>
 							{#if student.verified}
 								<button
 									aria-busy={loading[index]}
