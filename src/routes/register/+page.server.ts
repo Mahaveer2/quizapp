@@ -28,14 +28,14 @@ const register: Action = async ({ cookies, request }) => {
 		return fail(400, { credentials: true })
 	}
 
-	if (!validateEmail(email)) {
-		return fail(500, { invalidEmail: true })
-	}
+	// if (!validateEmail(email)) {
+	// 	return fail(500, { invalidEmail: true })
+	// }
 
-	function validateEmail(email: string) {
-		const regex = /^[^\s@]+@torontoMU\.ca$/i
-		return regex.test(email)
-	}
+	// function validateEmail(email: string) {
+	// 	const regex = /^[^\s@]+@torontoMU\.ca$/i
+	// 	return regex.test(email)
+	// }
 
 	if (typeof email !== 'string' || typeof password !== 'string' || !email || !password) {
 		return fail(400, { invalid: true })

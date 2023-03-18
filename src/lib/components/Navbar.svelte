@@ -9,7 +9,7 @@
 >
 	<div class="w-[80%] flex justify-between items-center">
 		<a href="/" class="overflow-hidden h-[60px]">
-			<img src="/logosm.webp" class="w-[40px] h-[40px] rounded-lg mt-3 flex  object-cover" />
+			<img src="/logor.png" class="w-[auto] h-[40px] rounded-lg mt-3 flex  object-cover" />
 		</a>
 		<button
 			on:click={() => (isNav = true)}

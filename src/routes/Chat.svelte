@@ -142,14 +142,14 @@ query = '';
 		</form>
 	</div>
 {:else}
-	<div class="flex items-center mt-[60px] flex-co z-[23232] h-[100vh] w-full justify-center">
+	<div class="flex items-center mt-[0px] flex-co z-[23232] h-[100vh] w-full justify-center">
 		<div class="container flex justify-between">
 			<div class="left w-[500px] relative">
-				<img src="/logor.png" class="w-[500px] absolute left-[-20%] top-[-190px]"/>
+				<img src="/logor.png" class="w-[300px] mb-2"/>
 				<p>Thank you for visiting our beta site. ProfBot is a work in progress focused on using chatbots in the classroom to increase student success.</p>
 			</div>
-			<div class="mt-[-100px] hidden md:block">
-				<img src="/logosm.webp" class="w-[200px] h-[200px] rounded"/>
+			<div class="mt-[-40px] hidden md:block">
+				<img src="/logosm.png" class="w-[200px] h-[220px] rounded"/>
 			</div>
 		</div>
 	</div>

@@ -92,7 +92,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			},
 			{
 				role:'system',
-				content:"if the user asks if there is any time limit you tell him there a time limit for the session credit which is 10minutes"
+				content:"if only when the user asks if there is any time limit you tell him there a time limit for the session credit which is 10minutes"
 			},
 			{
 				role:'system',
