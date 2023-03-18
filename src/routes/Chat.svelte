@@ -146,7 +146,7 @@ query = '';
 		<div class="container flex justify-between">
 			<div class="left w-[500px] relative">
 				<img src="/logor.png" class="w-[500px] absolute left-[-20%] top-[-190px]"/>
-				<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro nihil asperiores exercitationem? Reprehenderit vitae cumque quisquam natus eaque amet omnis quo ut error odit temporibus et rerum sunt, dicta odio aut! Rem, dolor? Sequi nesciunt dolorum eveniet, provident earum quos, architecto nulla doloribus in, pariatur inventore non deleniti labore obcaecati?</p>
+				<p>Thank you for visiting our beta site. ProfBot is a work in progress focused on using chatbots in the classroom to increase student success.</p>
 			</div>
 			<div class="mt-[-100px] hidden md:block">
 				<img src="/logosm.webp" class="w-[200px] h-[200px] rounded"/>
