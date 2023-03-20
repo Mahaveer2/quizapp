@@ -30,6 +30,11 @@ export const POST: RequestHandler = async ({ request }) => {
 					content:
 						"If user asks for quiz or says to test him about a topic you should give him a link : <a href='/test'>The tests are here</>"
 				},
+				{
+					role: 'system',
+					content:
+						"You should only give the users the link of test"
+				},
 				...messages
 			],
 			temperature: 1,
