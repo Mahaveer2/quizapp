@@ -8,17 +8,22 @@
 	<div class="chat-image avatar">
 		<div class="w-10 rounded-full">
 			<img
-				src="https://ui-avatars.com/api/?name={type === 'user' ? 'Me' : 'B'}"
+				src={type === 'user' ? 'https://ui-avatars.com/api/?name=Me' : '/logosm.webp'}
 				alt="{type} avatar"
+				class="shadow shadow-white"
 			/>
 		</div>
 	</div>
-	
-	<div class="chat-bubble {type === 'user' ? 'chat-bubble bg-warning text-black ' : 'chat-bubble bg-[rgba(255,255,255,.22)] text-[#fff]'}">
-		{#if type=="assistant"}
-		{@html message}
+
+	<div
+		class="chat-bubble {type === 'user'
+			? 'chat-bubble bg-warning text-black '
+			: 'chat-bubble bg-[rgba(255,255,255,.22)] text-[#fff]'}"
+	>
+		{#if type == 'assistant'}
+			{@html message}
 		{:else}
-		{message}
+			{message}
 		{/if}
 	</div>
 </div>
