@@ -49,7 +49,7 @@ const pay: Action = async ({ request, cookies }) => {
 	}
 
 	paypal.configure({
-		mode: 'sandbox', //sandbox or live
+		mode: 'live', //sandbox or live
 		client_id: VITE_PAYPAL_CLIENT,
 		client_secret: VITE_PAYPAL_SECRET
 	})
