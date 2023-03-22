@@ -100,7 +100,11 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			},
 			{
 				role:'system',
-				content:'make sure you check the question with answer and it shall be correct.'
+				content:'make sure you check the question with answer and it shall be correct and relates with answer check strongly'
+			},
+			{
+				role:'system',
+				content:'strongly check the answers.'
 			},
 			...reqMessages
 		]

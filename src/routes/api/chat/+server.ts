@@ -23,26 +23,24 @@ export const POST: RequestHandler = async ({ request }) => {
 			messages: [
 				{
 					role: 'system',
-					content: prompt
-				},
-				{
-					role: 'system',
 					content:
 						"If user asks for quiz or says to test him about a topic you should give him a link : <a href='/test'>The tests are here</>"
 				},
 				{
 					role: 'system',
 					content:
-						"You should only give the users the link of test"
+						'Your only role is to give the users the link of test exactly like what i described'
+				},
+				{
+					role: 'system',
+					content:
+						'if the user asks something random then say that: i am not built for this purpose here is the test link'
 				},
 				...messages
 			],
-			temperature: 1,
+			temperature: 0.2,
 			stream: true
 		}
-		let timeTakento: number = 0
-
-		setInterval(() => timeTakento++, 1000)
 
 		const { body } = await fetch('https://api.openai.com/v1/chat/completions', {
 			headers: {
@@ -52,7 +50,6 @@ export const POST: RequestHandler = async ({ request }) => {
 			method: 'POST',
 			body: JSON.stringify(chatRequestOpts)
 		})
-		console.log(timeTakento)
 
 		return new Response(body, {
 			headers: {
