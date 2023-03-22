@@ -98,6 +98,10 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 				role:'system',
 				content:'you should check answers and give marks precisely!'
 			},
+			{
+				role:'system',
+				content:'make sure you check the question with answer and it shall be correct.'
+			},
 			...reqMessages
 		]
 
@@ -105,7 +109,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		const chatRequestOpts: CreateChatCompletionRequest = {
 			model: 'gpt-3.5-turbo',
 			messages,
-			temperature: 1,
+			temperature: 0.3,
 			stream: true
 		}
 
