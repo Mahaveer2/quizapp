@@ -14,6 +14,6 @@
 		user data is recorded nor stored by ProfBot on our (and) openAI servers. For details please see:
 		openAI.com/faq We remind users that this is a 100% optional service and they are free to logout
 		at any time or not use it all. But by using this service you grant us your informed consent.
-		Your consent is revocable by you AT ANY time. Simply email: unsub@profbot.ai”.
+		Your consent is revocable by you AT ANY time. Simply email: unsub@profbot.ai.
 	</p>
 </div>
