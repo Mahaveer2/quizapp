@@ -123,7 +123,7 @@ query = '';
 	<div class="flex flex-col pt-4 w-full items-center absolute top-[45px] w-full">
 		<div bind:this={objDiv} class="h-[65vh] w-full p-4 overflow-y-auto flex flex-col gap-4">
 			<div class="flex flex-col gap-2 w-full">
-				<ChatMessage type="assistant" message={`Hello ${$page.data.user.firstName}, i am profbot , your tutor for any class, ask me anything you want`} />
+				<ChatMessage type="assistant" message={`Hello ${$page.data.user.firstName}, I am Profbot , Your tutor for any class, ask me anything you want.`} />
 				{#each chatMessages as message}
 					<ChatMessage type={message.role} message={message.content} />
 				{/each}

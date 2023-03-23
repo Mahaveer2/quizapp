@@ -2,7 +2,7 @@
 	import SideLink from './SideLink.svelte'
 	import { page } from '$app/stores';
 	import DropDown from './DropDown.svelte'
-	const ico = $page.data.admin.email[0];
+	const ico = $page.data.admin.name[0];
 </script>
 
 <div
