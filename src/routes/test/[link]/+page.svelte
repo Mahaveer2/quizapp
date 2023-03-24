@@ -34,10 +34,10 @@
 
 	const handleSubmit = async () => {
 		loading = true
-		if(query == ""){
+		if (query == '') {
 			showMessage({
-				type:"Error",
-				_message:"Please enter a valid input."
+				type: 'Error',
+				_message: 'Please enter a valid input.'
 			})
 		}
 		chatMessages = [...chatMessages, { role: 'user', content: query }]
@@ -137,11 +137,11 @@
 	}
 
 	let timeLeft: number = 600
-	let credits;
-	if($page.data.admin){
-		credits = 5;
-	}else{
-		credits = $page.data?.user?.credits;
+	let credits
+	if ($page.data.admin) {
+		credits = 5
+	} else {
+		credits = $page.data?.user?.credits
 	}
 	const startTimer = () => {
 		let timerId = setInterval(() => {
@@ -149,7 +149,7 @@
 			if (timeLeft === 0) {
 				fetch('/api/student/reduce', {
 					method: 'POST',
-					body: JSON.stringify({ id: $page.data.user.userId })
+					body: JSON.stringify({ id: $page.data.user.userId, shareLink: $page.params.link,score:{} })
 				})
 					.then((msg) => msg.json())
 					.then((res) => {
@@ -161,7 +161,7 @@
 							loading = true
 						}
 						if (res.status == 200) {
-							credits--
+							credits--;
 							showMessage({
 								_message: 'Credit used.',
 								type: 'success'
@@ -185,33 +185,36 @@
 	})
 </script>
 
-	<div class="flex flex-col pt-4 w-full items-center absolute top-[45px]">
-		<h1 class="my-4 text-sm absolute top-2 bg-yellow-500 p-3 rounded-full z-[22]">
-			{formatTime(timeLeft)} left
-		</h1>
-		<div class="h-[63vh] w-full p-4 overflow-y-auto flex flex-col gap-4">
-			<div class="flex flex-col gap-2">
-				<ChatMessage type="assistant" message="Type start to continue start you have 10 minutes to answer 5 questions." />
-				{#each chatMessages as message}
-					<ChatMessage type={message.role} message={message.content} />
-				{/each}
-				{#if answer}
-					<ChatMessage type="assistant" message={answer} />
-				{/if}
-				{#if loading}
-					<ChatMessage type="assistant" message="Loading..." />
-				{/if}
-			</div>
-			<div class="" bind:this={scrollToDiv} />
+<div class="flex flex-col pt-4 w-full items-center absolute top-[45px]">
+	<h1 class="my-4 text-sm absolute top-2 bg-yellow-500 p-3 rounded-full z-[22]">
+		{formatTime(timeLeft)} left
+	</h1>
+	<div class="h-[63vh] w-full p-4 overflow-y-auto flex flex-col gap-4">
+		<div class="flex flex-col gap-2">
+			<ChatMessage
+				type="assistant"
+				message="Type start to continue start you have 10 minutes to answer 5 questions."
+			/>
+			{#each chatMessages as message}
+				<ChatMessage type={message.role} message={message.content} />
+			{/each}
+			{#if answer}
+				<ChatMessage type="assistant" message={answer} />
+			{/if}
+			{#if loading}
+				<ChatMessage type="assistant" message="Loading..." />
+			{/if}
 		</div>
-		<form
-			aria-disabled={loading}
-			class="flex flex-col w-full gap-4  p-4"
-			on:submit|preventDefault={() => handleSubmit()}
-		>
-			<textarea bind:value={query} class="p-5 w-full border" placeholder="Your Answer" />
-			<button disabled={loading} class=" btn-p gap-5" type="submit">
-				Send <i class="fa fa-paper-plane" /></button
-			>
-		</form>
+		<div class="" bind:this={scrollToDiv} />
 	</div>
+	<form
+		aria-disabled={loading}
+		class="flex flex-col w-full gap-4  p-4"
+		on:submit|preventDefault={() => handleSubmit()}
+	>
+		<textarea bind:value={query} class="p-5 w-full border" placeholder="Your Answer" />
+		<button disabled={loading} class=" btn-p gap-5" type="submit">
+			Send <i class="fa fa-paper-plane" /></button
+		>
+	</form>
+</div>

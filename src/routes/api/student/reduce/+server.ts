@@ -2,7 +2,7 @@ import { client } from '$lib/database'
 import { json } from '@sveltejs/kit'
 
 export async function POST({ request }) {
-	const { id } = await request.json()
+	const { id, shareLink,score } = await request.json()
 
 	await client.student.update({
 		where: {
@@ -11,9 +11,20 @@ export async function POST({ request }) {
 		data: {
 			credits: {
 				decrement: 1
+			},
+			scores: {
+				create: {
+					score: JSON.stringify(score),
+					test: {
+						connect: {
+							shareLink: String(shareLink)
+						}
+					}
+				}
 			}
 		}
 	})
+
 	return json({
 		status: 200
 	})

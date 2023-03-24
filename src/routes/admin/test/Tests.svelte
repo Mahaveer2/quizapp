@@ -11,6 +11,7 @@
 		let res = await response.json()
 		data = res.data
 		busy = false
+		console.log(res.data)
 	}
 
 	onMount(() => {
@@ -51,6 +52,7 @@
 			<tr>
 				<th>#</th>
 				<th>Test</th>
+				<th>Sessions</th>
 				<th>Share Link</th>
 				<th>Actions</th>
 			</tr>
@@ -67,6 +69,7 @@
 					<tr>
 						<th>{index + 1}</th>
 						<td>{test.name}</td>
+						<td>{test?.scores?.length}</td>
 						<td>
 							<a class="link" href={`/test/${test.shareLink}`}>{test.shareLink}</a>
 						</td>
