@@ -4,6 +4,17 @@ import { json } from '@sveltejs/kit'
 export async function POST({ request }) {
 	const { id, shareLink,score } = await request.json()
 
+	await client.creditsUsed.create({
+		data:{
+			student:{
+				connect:{
+					id:id
+				}
+			},
+			shareLink:shareLink
+		}
+	})
+
 	await client.student.update({
 		where: {
 			id: id

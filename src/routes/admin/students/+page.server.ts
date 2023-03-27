@@ -2,7 +2,11 @@ import {client} from "$lib/database";
 import { json } from "@sveltejs/kit";
 
 export async function load(){
-  const students = await client.student.findMany();
+  const students = await client.student.findMany({
+    include:{
+      creditsUsed:true
+    }
+  });
 
   return {
     students:students

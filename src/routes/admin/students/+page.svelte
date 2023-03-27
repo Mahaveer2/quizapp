@@ -115,6 +115,7 @@
 					<th>First Name</th>
 					<th>Last Name</th>
 					<th>Credits</th>
+					<th>Credits Used</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
@@ -126,29 +127,30 @@
 						<td>{student.firstName}</td>
 						<td>{student.lastName}</td>
 						<td>{student.credits}</td>
+						<td>{student.creditsUsed.length}</td>
 						<td>
 							<button
 									aria-busy={creditLoad[index]}
 									on:click={() => addCredit(student.id, index)}
-									class="btn btn-black">Add Credit</button
+									class="btn btn-sm btn-black">Add Credit</button
 								>
 							{#if student.verified}
 								<button
 									aria-busy={loading[index]}
 									on:click={() => verifyStudent(student.id, index)}
-									class="btn btn-warning">Disverify</button
+									class="btn btn-sm btn-warning">Disverify</button
 								>
 							{:else}
 								<button
 									aria-busy={loading[index]}
 									on:click={() => verifyStudent(student.id, index)}
-									class="btn btn-black">Verify</button
+									class="btn btn-sm btn-black">Verify</button
 								>
 							{/if}
               <button
 									aria-busy={deleteLoad[index]}
 									on:click={() => deleteStudent(student.id, index)}
-									class="btn btn-error">Delete</button
+									class="btn btn-sm btn-error">Delete</button
 								>
 						</td>
 					</tr>

@@ -109,11 +109,15 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			...reqMessages
 		]
 
+		// let tokens = 0;
+		// messages.map(m =>tokens+= m.content.length)
+		// console.log(tokens)
+
 
 		const chatRequestOpts: CreateChatCompletionRequest = {
 			model: 'gpt-3.5-turbo',
 			messages,
-			temperature: 0.3,
+			temperature: 0.2,
 			stream: true
 		}
 

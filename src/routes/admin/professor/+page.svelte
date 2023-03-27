@@ -122,6 +122,7 @@
 				<tr>
 					<th>id</th>
 					<th>Email</th>
+					<th>Tests Created</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
@@ -130,6 +131,7 @@
 					<tr>
 						<th>{professor.id}</th>
 						<td>{professor.email}</td>
+						<td>{professor.Test.length}</td>
 						<td>
 							<button on:click={() => setCurrentProfessor(professor, i)} class="btn ">Edit</button>
 							<button class="btn btn-error" on:click={() => deleteProf(professor.id)}>Delete</button

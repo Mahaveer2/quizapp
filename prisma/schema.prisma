@@ -15,10 +15,13 @@ model Admin {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   userAuthToken String   @unique @default("")
+  Test          Test[]
 }
 
 model Test {
   id        Int        @id @default(autoincrement())
+  professor Admin      @relation(references: [id], fields: [profId],onDelete: Cascade)
+  profId    Int        @default(1)
   name      String
   questions Question[]
   scores    Score[]
@@ -46,6 +49,7 @@ model Student {
   credits       Int               @default(0)
   verified      Boolean           @default(false)
   freeCredits   FreeCredits[]
+  creditsUsed  CreditsUsed[]
   payments      PaymentSessions[]
   userAuthToken String            @unique @default("")
 }
@@ -59,10 +63,18 @@ model FreeCredits {
   expiresAt DateTime @default(dbgenerated("(now() + '7 days'::interval)"))
 }
 
+model CreditsUsed{
+  id Int @id @default(autoincrement())
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  studentId Int
+  shareLink String
+  createdAt DateTime @default(now())
+}
+
 model PaymentSessions {
   id        Int      @id @default(autoincrement())
   paymentId String   @unique
-  student   Student  @relation(fields: [studentId], references: [id],onDelete: Cascade)
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
   studentId Int
   createdAt DateTime @default(now())
 }
@@ -70,9 +82,9 @@ model PaymentSessions {
 model Score {
   id        Int     @id @default(autoincrement())
   score     Json
-  student   Student @relation(fields: [studentId], references: [id],onDelete: Cascade)
+  student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
   studentId Int
-  test      Test    @relation(fields: [testId], references: [id],onDelete: Cascade)
+  test      Test    @relation(fields: [testId], references: [id], onDelete: Cascade)
   testId    Int
 }
 
