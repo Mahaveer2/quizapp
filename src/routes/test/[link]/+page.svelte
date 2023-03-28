@@ -65,38 +65,35 @@
 					}
 					chatMessages = [...chatMessages, { role: 'assistant', content: answer }]
 					try {
-						console.log(answer)
 						const jsonStr = answer.substring(answer.indexOf('{'), answer.indexOf('}') + 1)
-						console.log(jsonStr)
 						if (jsonStr) {
 							try {
-								const data = JSON.stringify(jsonStr)
-								const score = JSON.parse('' + JSON.parse(data) + '')
-								score.email = $page.data.user.email
-								score.shareLink = $page.params.link
-
-								try {
-									if (!submitted) {
-										let req = await fetch('/api/score', {
-											method: 'POST',
-											body: JSON.stringify(score)
-										})
-										submitted = true
-										showMessage({
-											type: 'success',
-											_message: 'Test saved to profile.'
-										})
-									}
-								} catch (e) {
-									showMessage({
-										type: 'Error',
-										_message: e
-									})
-								}
-
-								if (score) {
-									answer = 'Hooray your result is :)'
-								}
+								fetch('/api/student/reduce', {
+					method: 'POST',
+					body: JSON.stringify({ id: $page.data.user.userId, shareLink: $page.params.link,score:{} })
+				})
+					.then((msg) => msg.json())
+					.then((res) => {
+						if (credits <= 0) {
+							showMessage({
+								_message: 'No credits left buy more from account or wait another week.',
+								type: 'Error'
+							})
+							loading = true
+						}
+						if (res.status == 200) {
+							credits--;
+							showMessage({
+								_message: 'Credit used.',
+								type: 'success'
+							})
+						} else {
+							showMessage({
+								_message: 'An error occured!',
+								type: 'Error'
+							})
+						}
+					})
 							} catch (e) {
 								console.log(e)
 							}
@@ -134,6 +131,10 @@
 		const minutes = Math.floor(seconds / 60)
 		const remainingSeconds = seconds % 60
 		return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`
+	}
+
+	function endTest(){
+		alert("ENDING THE TEST")
 	}
 
 	let timeLeft: number = 600

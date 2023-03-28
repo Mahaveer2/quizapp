@@ -35,7 +35,7 @@
 	{#if role =='user'}
 	{message}
 	{:else}
-	{msg}
+	{@html msg}
 	{/if}
 	</div>
 </div>

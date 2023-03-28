@@ -65,7 +65,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		const prompt: string = `
 		You are a strict and angry examinee,you are motivating, you will conduct a test on the following test data : ${JSON.stringify(
 			test_data
-		)};you will ask questions one by one after the users says start ,you will also tell the user about the marks on the question , and at the end you will a result with a feedback review score and tips for improving"
+		)};you will ask questions one by one after the users says start ,you will also tell the user about the marks on the question , and at the end you will a result with a feedback review score and tips for improving and you will also give a secret word '{test ended}' exactly like this and only at the end of test wrapped in <p> tag."
 		`
 		tokenCount += getTokens(prompt)
 
@@ -85,6 +85,10 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			{
 				role: 'system',
 				content: `the user have ${locals?.user?.credits || 100} after the test and when you give review subtract one from it if the credits are 0 say him to buy the credits from the account page`
+			},
+			{
+				role: 'system',
+				content: `you should only take test nothing else , your only task is to take test`
 			},
 			{
 				role: 'system',

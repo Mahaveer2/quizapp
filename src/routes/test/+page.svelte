@@ -6,7 +6,6 @@
 	const { user,tests } = data
 
 	let disabled = false
-	console.log(user)
 	if (user.credits <= 0) {
 		disabled = true
 	}
