@@ -181,6 +181,7 @@
 	onMount(async () => {
 		if ($page.data.user) {
 		}
+		
 		scrollToBottom()
 	})
 </script>

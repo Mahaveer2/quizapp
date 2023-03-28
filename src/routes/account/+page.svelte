@@ -40,7 +40,7 @@
 </script>
 
 <div class="mt-14 container">
-	<div class="flex justify-between w-full">
+	<div class="flex justify-between flex-col md:flex-row gap-3 w-full">
 		<h1 class="text-2xl">Account</h1>
 		<button on:click={() => (isModal = true)} class="btn btn-accent"
 			>Change Account settings.</button

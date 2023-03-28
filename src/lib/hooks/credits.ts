@@ -2,69 +2,62 @@ import { client } from '$lib/database'
 import moment from 'moment'
 
 export async function runCreditLogic(email: string) {
-	let isCredit = await client.freeCredits.findMany({
-		where: {
-			used: false,
-			student: {
-				email: email
-			}
-		}
-	})
+  // find all credits for the given email
+  let isCredit = await client.freeCredits.findMany({
+    where: {
+      student: {
+        email: email
+      }
+    },
+    orderBy: {
+      createdAt: 'desc'
+    }
+  })
 
-	const createCredit = async () => {
-		await client.freeCredits.create({
-			data: {
-				used: false,
-				student: {
-					connect: {
-						email: email
-					}
-				}
-			}
-		})
-	}
+  // filter out expired or used credits
+  const validCredits = isCredit.filter(credit => {
+    return moment().isBefore(credit.expiresAt) && !credit.used;
+  });
 
-	if (isCredit.length <= 0) {
-		await createCredit()
-	}
+  // remove expired or used credits from the database
+  const expiredCredits = isCredit.filter(credit => {
+    return moment().isAfter(credit.expiresAt) || credit.used;
+  });
 
-	isCredit.forEach(async (credit) => {
-		if (moment().isAfter(credit.expiresAt)) {
-			if (credit.used) {
-				await client.student.update({
-					where: {
-						email: email
-					},
-					data: {
-						credits: {
-							decrement: 1
-						}
-					}
-				})
-			}
-			await createCredit()
-		}
-		if (moment().isBefore(credit.expiresAt) && !credit.used) {
+  for (const credit of expiredCredits) {
+		if(!credit.used){
 			await client.student.update({
-				where: {
-					email: email
+				where:{
+					email:email,
 				},
-				data: {
-					credits: {
-						increment: 1
+				data:{
+					credits:{
+						decrement:1
 					}
 				}
 			})
-
-			await client.freeCredits.update({
-				where: {
-					id: credit.id
-				},
-				data: {
-					used: true
-				}
-			})
-		} else {
 		}
-	})
+    await client.freeCredits.update({
+      where: {
+        id: credit.id,
+      },
+			data:{
+				used:true
+			}
+    });
+  }
+
+  // create a new credit if there are no valid credits
+  if (validCredits.length <= 0) {
+    await client.freeCredits.create({
+      data: {
+        used: false,
+        student: {
+          connect: {
+            email: email
+          }
+        }
+      }
+    })
+  }
 }
