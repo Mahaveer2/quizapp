@@ -110,6 +110,10 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 				role:'system',
 				content:'strongly check the answers.'
 			},
+			{
+				role:'system',
+				content:'At the end of test you must give the word {testEnd} written under html p tags.'
+			}
 			...reqMessages
 		]
 
