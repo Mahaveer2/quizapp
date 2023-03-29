@@ -60,7 +60,7 @@
 			try {
 				loading = false
 				if (e.data === '[DONE]') {
-					if (timeLeft == 600) {
+					if (timeLeft == 300) {
 						startTimer()
 					}
 					chatMessages = [...chatMessages, { role: 'assistant', content: answer }]
@@ -69,31 +69,35 @@
 						if (jsonStr) {
 							try {
 								fetch('/api/student/reduce', {
-					method: 'POST',
-					body: JSON.stringify({ id: $page.data.user.userId, shareLink: $page.params.link,score:{} })
-				})
-					.then((msg) => msg.json())
-					.then((res) => {
-						if (credits <= 0) {
-							showMessage({
-								_message: 'No credits left buy more from account or wait another week.',
-								type: 'Error'
-							})
-							loading = true
-						}
-						if (res.status == 200) {
-							credits--;
-							showMessage({
-								_message: 'Credit used.',
-								type: 'success'
-							})
-						} else {
-							showMessage({
-								_message: 'An error occured!',
-								type: 'Error'
-							})
-						}
-					})
+									method: 'POST',
+									body: JSON.stringify({
+										id: $page.data.user.userId,
+										shareLink: $page.params.link,
+										score: {}
+									})
+								})
+									.then((msg) => msg.json())
+									.then((res) => {
+										if (credits <= 0) {
+											showMessage({
+												_message: 'No credits left buy more from account or wait another week.',
+												type: 'Error'
+											})
+											loading = true
+										}
+										if (res.status == 200) {
+											credits--
+											showMessage({
+												_message: 'Credit used.',
+												type: 'success'
+											})
+										} else {
+											showMessage({
+												_message: 'An error occured!',
+												type: 'Error'
+											})
+										}
+									})
 							} catch (e) {
 								console.log(e)
 							}
@@ -133,11 +137,11 @@
 		return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`
 	}
 
-	function endTest(){
-		alert("ENDING THE TEST")
+	function endTest() {
+		alert('ENDING THE TEST')
 	}
 
-	let timeLeft: number = 600
+	let timeLeft: number = 300
 	let credits
 	if ($page.data.admin) {
 		credits = 5
@@ -150,7 +154,11 @@
 			if (timeLeft === 0) {
 				fetch('/api/student/reduce', {
 					method: 'POST',
-					body: JSON.stringify({ id: $page.data.user.userId, shareLink: $page.params.link,score:{} })
+					body: JSON.stringify({
+						id: $page.data.user.userId,
+						shareLink: $page.params.link,
+						score: {}
+					})
 				})
 					.then((msg) => msg.json())
 					.then((res) => {
@@ -162,7 +170,7 @@
 							loading = true
 						}
 						if (res.status == 200) {
-							credits--;
+							credits--
 							showMessage({
 								_message: 'Credit used.',
 								type: 'success'
@@ -182,7 +190,7 @@
 	onMount(async () => {
 		if ($page.data.user) {
 		}
-		
+
 		scrollToBottom()
 	})
 </script>

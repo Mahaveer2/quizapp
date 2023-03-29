@@ -58,8 +58,12 @@
 			</tr>
 		</thead>
 		<tbody>
+			
+
 			{#if busy}
-				loading...
+			<div class='w-full flex justify-center mt-10 items-center'>
+				<img src="/preloader.svg" class="w-[40px] h-[40px] rounded"/>
+				</div>
 			{/if}
 			{#if !busy}
 				{#if !data.length}No tests found...{/if}

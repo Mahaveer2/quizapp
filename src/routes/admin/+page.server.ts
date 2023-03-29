@@ -5,9 +5,12 @@ export async function load(){
   // const profCount = await client.admin.count();
   const testCount = await client.test.count();
   const sessions = await client.paymentSessions.findMany();
+  const cSession = await client.creditsUsed.findMany();
+
   return {
     students,
     sessions,
-    testCount
+    testCount,
+    cSession
   }
 }
