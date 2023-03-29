@@ -65,7 +65,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		const prompt: string = `
 		You are a strict and angry examinee,you are motivating, you will conduct a test on the following test data : ${JSON.stringify(
 			test_data
-		)};you will ask questions one by one after the users says start ,you will also tell the user about the marks on the question , and at the end you will a result with a feedback review score and tips for improving and you will also give a word '<p>{test ended}</p>' exactly like this and only at the end of test wrapped in <p> tag."
+		)};you will ask questions one by one after the users says start ,you will also tell the user about the marks on the question , and at the end you will a result with a feedback review score and tips for improving and you will also give a word '<script>{test ended}</script>' exactly like this and only at the end of test wrapped in <script> tag."
 		`
 		tokenCount += getTokens(prompt)
 
@@ -112,7 +112,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			},
 			{
 				role:'system',
-				content:'At the end of test you must give the word {testEnd} written under html p tags. the html must be correct and it should be wrapped in like this: <p>{testEnd}</p>'
+				content:'At the end of test you must give the word {testEnd} written under html p tags. the html must be correct and it should be wrapped in like this: <script>{testEnd}</script>'
 			},
 			...reqMessages
 		]

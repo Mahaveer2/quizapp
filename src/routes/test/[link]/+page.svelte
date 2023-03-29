@@ -203,7 +203,7 @@
 		<div class="flex flex-col gap-2">
 			<ChatMessage
 				type="assistant"
-				message="Type start to continue start you have 10 minutes to answer 5 questions."
+				message="Type start to continue start you have 5 minutes to answer 5 questions."
 			/>
 			{#each chatMessages as message}
 				<ChatMessage type={message.role} message={message.content} />
