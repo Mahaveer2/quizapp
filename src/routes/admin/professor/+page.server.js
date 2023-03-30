@@ -7,9 +7,12 @@ export async function load({params}){
     }
   });
 
+  const tests = await client.creditsUsed.findMany({})
+
   // console.log(data)
 
   return {
-    professors:data
+    professors:data,
+    tests,
   }
 }

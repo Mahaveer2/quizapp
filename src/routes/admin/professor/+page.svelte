@@ -5,7 +5,19 @@
 	import { showMessage } from '$lib/util'
 
 	export let data
-	let { professors } = data
+	let { professors, tests } = data
+
+	let professorSessionUsed = []
+	for (const prof of professors) {
+		const usedTests = prof.Test.reduce((acc, t) => {
+			const usedTest = tests
+				.filter((test) => test.shareLink === t.shareLink)
+				.map((e) => ({ ...e, profId: prof.id }))
+			return [...acc, ...usedTest]
+		}, [])
+		professorSessionUsed = [...professorSessionUsed, ...usedTests]
+	}
+
 	let currentProfessorIndex = 0
 	let isModalOpen = false
 	let loading = false
@@ -123,6 +135,7 @@
 					<th>id</th>
 					<th>Email</th>
 					<th>Tests Created</th>
+					<th>Sessions Used</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
@@ -132,6 +145,7 @@
 						<th>{professor.id}</th>
 						<td>{professor.email}</td>
 						<td>{professor.Test.length}</td>
+						<td>{professorSessionUsed.filter((f) => f.profId == professor.id).length}</td>
 						<td>
 							<button on:click={() => setCurrentProfessor(professor, i)} class="btn ">Edit</button>
 							<button class="btn btn-error" on:click={() => deleteProf(professor.id)}>Delete</button
