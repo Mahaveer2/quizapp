@@ -1,22 +1,29 @@
-# create-svelte
+# ProfBot
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Everything you need to start profbot
+[`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
 ## Creating a project
 
 If you're seeing this, you've probably already done this step. Congrats!
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+>You can get a postgresql database using Supabase or any other database service like amazon rds etc
 
-# create a new project in my-app
-npm create svelte@latest my-app
+### To Install the app locally
+
+```bash
+# Clone the repo and then first install prisma
+npm install prisma --save-dev
+
+npm install
+# Initialize the database after you changed the url 
+# this step is important and make 
+npx prisma db push
 ```
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Once you've created a project and installed dependencies with `npm install` start a development server:
 
 ```bash
 npm run dev
@@ -35,6 +42,6 @@ npm run build
 
 You can preview the production build with `npm run preview`.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+> To deploy your site to the web you need to host it with given settings and first initialize the database and then run it
 
 A website where a admin can create and view test with a human like interaction between user and bot
