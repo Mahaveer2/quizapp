@@ -40,6 +40,8 @@ To create a production version of your app:
 npm run build
 ```
 
+#### Also make sure to copy correct enviroment(as mentioned in .env.example) variables to your hosting provider 
+
 You can preview the production build with `npm run preview`.
 
 > To deploy your site to the web you need to host it with given settings and first initialize the database and then run it
