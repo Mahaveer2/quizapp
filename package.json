@@ -1,5 +1,6 @@
 {
-	"name": "sk-tailwind",
+	"name": "Professor Bot",
+	"author": {"email": "amrani.mahaveer223@gmail.com","name": "Mahaveer","url": "https://mahaveeramrani.vercel.app/"},
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
