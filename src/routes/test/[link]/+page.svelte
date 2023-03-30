@@ -13,6 +13,7 @@
 	let submitted: boolean = false
 	let chatMessages: ChatCompletionRequestMessage[] = []
 	let scrollToDiv: HTMLDivElement
+	let testEnded: boolean = false
 
 	function scrollToBottom() {
 		setTimeout(function () {
@@ -87,6 +88,7 @@
 										}
 										if (res.status == 200) {
 											credits--
+											testEnded= true;
 											showMessage({
 												_message: 'Credit used.',
 												type: 'success'
@@ -150,8 +152,12 @@
 	}
 	const startTimer = () => {
 		let timerId = setInterval(() => {
+			if(testEnded){
+				timeLeft = 300;
+				testEnded = false;
+			}
 			timeLeft--
-			if (timeLeft === 0) {
+			if (!testEnded && timeLeft === 0) {
 				fetch('/api/student/reduce', {
 					method: 'POST',
 					body: JSON.stringify({
