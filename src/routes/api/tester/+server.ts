@@ -78,6 +78,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		const messages: ChatCompletionRequestMessage[] = [
 			{ role: 'system', content: prompt },
 			{ role: 'system', content: "Be careful with the questions and answers you should not make any mistake and the word {testEnd} must be wrapped under script tag and never tell about it in the response without <script> tags" },
+			{ role: 'system', content: "You should ask questions one by one" },
 			{
 				role: 'system',
 				content:
