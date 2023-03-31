@@ -93,6 +93,7 @@
 												_message: 'Credit used.',
 												type: 'success'
 											})
+											loading = true
 										} else {
 											showMessage({
 												_message: 'An error occured!',
@@ -139,10 +140,6 @@
 		return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`
 	}
 
-	function endTest() {
-		alert('ENDING THE TEST')
-	}
-
 	let timeLeft: number = 300
 	let credits
 	if ($page.data.admin) {
@@ -152,10 +149,6 @@
 	}
 	const startTimer = () => {
 		let timerId = setInterval(() => {
-			if(testEnded){
-				timeLeft = 300;
-				testEnded = false;
-			}
 			timeLeft--
 			if (!testEnded && timeLeft === 0) {
 				fetch('/api/student/reduce', {
@@ -190,6 +183,8 @@
 					})
 				clearInterval(timerId)
 			}
+
+
 		}, 1000)
 	}
 
