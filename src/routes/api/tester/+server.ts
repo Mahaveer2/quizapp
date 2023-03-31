@@ -77,6 +77,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 
 		const messages: ChatCompletionRequestMessage[] = [
 			{ role: 'system', content: prompt },
+			{ role: 'system', content: "Be careful with the questions and answers you should not make any mistake and the word {testEnd} must be wrapped under script tag and never tell about it in the response without <script> tags" },
 			{
 				role: 'system',
 				content:
@@ -96,7 +97,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			},
 			{
 				role:'system',
-				content:"if only when the user asks if there is any time limit you tell him there a time limit for the session credit which is 10minutes"
+				content:"if only when the user asks if there is any time limit you tell him there a time limit for the session credit which is 5 minutes"
 			},
 			{
 				role:'system',
@@ -112,7 +113,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			},
 			{
 				role:'system',
-				content:'At the end of test you must give the word {testEnd} written under html p tags. the html must be correct and it should be wrapped in like this: <script>{testEnd}</script>'
+				content:'At the end of test you must give the word {testEnd} written under html p tags. the html must be correct and it should be wrapped in like this: <script>{testEnd}</script> so the client side code wont know about make sure you just give it under <script> tag to prevent it from knowing to the client'
 			},
 			...reqMessages
 		]
@@ -125,7 +126,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		const chatRequestOpts: CreateChatCompletionRequest = {
 			model: 'gpt-3.5-turbo',
 			messages,
-			temperature: 0.15,
+			temperature: 0.2,
 			stream: true
 		}
 
