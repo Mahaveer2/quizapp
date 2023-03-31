@@ -1,7 +1,9 @@
 # ProfBot
 
 Everything you need to start profbot
-[`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+[`Live Demo`](https://professorbot.netlify.app).
+
+![Drag Racing](static/demo.png)
 
 ## Creating a project
 
@@ -47,3 +49,7 @@ You can preview the production build with `npm run preview`.
 > To deploy your site to the web you need to host it with given settings and first initialize the database and then run it
 
 A website where a admin can create and view test with a human like interaction between user and bot
+
+##### Cool 😎
+##### Modern 🦾
+##### Simple 😇😇
