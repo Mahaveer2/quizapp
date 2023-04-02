@@ -8,7 +8,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build",
+		"build": "npx prisma generate && vite build",
 		"start": "npm install vite -g && vite preview",
 		"preview": "vite preview",
 		"test": "playwright test",

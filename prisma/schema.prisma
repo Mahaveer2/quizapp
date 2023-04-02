@@ -1,10 +1,10 @@
-generator client {
-  provider = "prisma-client-js"
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+generator client {
+  provider = "prisma-client-js"
 }
 
 model Admin {
@@ -15,12 +15,12 @@ model Admin {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   userAuthToken String   @unique @default("")
-  Test          Test[]
+  Test          Test[] // Many-to-many relationship
 }
 
 model Test {
   id        Int        @id @default(autoincrement())
-  professor Admin      @relation(references: [id], fields: [profId],onDelete: Cascade)
+  professor Admin      @relation(references: [id], fields: [profId], onDelete: Cascade)
   profId    Int        @default(1)
   name      String
   questions Question[]
@@ -49,7 +49,7 @@ model Student {
   credits       Int               @default(0)
   verified      Boolean           @default(false)
   freeCredits   FreeCredits[]
-  creditsUsed  CreditsUsed[]
+  creditsUsed   CreditsUsed[]
   payments      PaymentSessions[]
   userAuthToken String            @unique @default("")
 }
@@ -60,11 +60,11 @@ model FreeCredits {
   studentId Int
   used      Boolean  @default(false)
   createdAt DateTime @default(now())
-  expiresAt DateTime @default(dbgenerated("(now() + '7 days'::interval)"))
+  expiresAt DateTime @default(dbgenerated("(now() + INTERVAL 7 DAY)"))
 }
 
-model CreditsUsed{
-  id Int @id @default(autoincrement())
+model CreditsUsed {
+  id        Int      @id @default(autoincrement())
   student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
   studentId Int
   shareLink String
@@ -90,7 +90,7 @@ model Score {
 
 model Chat {
   id        Int       @id @default(autoincrement())
-  student   Student[]
+  student   Student[] 
   studentId Int
   prompt    String
   returnMsg String
