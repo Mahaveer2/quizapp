@@ -3,7 +3,7 @@ import type { Action, Actions, PageServerLoad } from './$types'
 import { VITE_QSTASH_TOKEN, VITE_QSTASH_SECRET, DOMAIN } from '$env/static/private'
 import { PrismaClient } from '@prisma/client'
 import { client } from '$lib/database'
-import bcrypt from "bcrypt";
+import bcrypt from 'bcrypt'
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// redirect user if logged in
@@ -43,17 +43,17 @@ const register: Action = async ({ cookies, request }) => {
 		return fail(400, { invalid: true })
 	}
 
-	const hashPassword = async (password:string, saltRounds = 10) => {
+	const hashPassword = async (password: string, saltRounds = 10) => {
 		try {
 			// Generate a salt
 			const salt = await bcrypt.genSalt(saltRounds)
-	
+
 			// Hash password
 			return await bcrypt.hash(password, salt)
 		} catch (error) {
 			console.log(error)
 		}
-	
+
 		// Return null if error
 		return null
 	}
@@ -65,15 +65,26 @@ const register: Action = async ({ cookies, request }) => {
 			lastName: lname,
 			password: await hashPassword(password),
 			userAuthToken: crypto.randomUUID(),
-			credits:1,
-			verified:true
+			credits: 1,
+			verified: true
 		}
 	})
 
-	await fetch(`${DOMAIN}/api/credits`,{
-		method:"POST",
-		body:JSON.stringify({studentId:user.id,secret:VITE_QSTASH_SECRET}),
-	})
+	await fetch(
+		'https://qstash.upstash.io/v1/publish/https://professorbot.netlify.app/api/credits/add',
+		{
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${VITE_QSTASH_TOKEN}`,
+				'Upstash-Delay': '7d',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				studentId: '1',
+				secret: VITE_QSTASH_SECRET
+			})
+		}
+	)
 
 	cookies.set('session', user.userAuthToken, {
 		// send cookie for every page
