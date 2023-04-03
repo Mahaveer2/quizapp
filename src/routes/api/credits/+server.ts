@@ -1,4 +1,4 @@
-import { VITE_QSTASH_TOKEN, VITE_QSTASH_SECRET } from '$env/static/private'
+import { VITE_QSTASH_TOKEN, VITE_QSTASH_SECRET, DOMAIN } from '$env/static/private'
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 
@@ -8,7 +8,7 @@ export async function POST({ request }: RequestHandler) {
 		return json('Error')
 	}
 
-	fetch('https://qstash.upstash.io/v1/publish/http://professorbot.netlify.app/api/credits/add', {
+	fetch(`https://qstash.upstash.io/v1/publish/${DOMAIN}api/credits/add`, {
 		method: 'POST',
 		headers: {
 			Authorization: `Bearer ${VITE_QSTASH_TOKEN}`,
