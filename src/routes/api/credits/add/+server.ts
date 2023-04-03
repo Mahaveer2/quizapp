@@ -18,8 +18,9 @@ export async function POST({ request }: RequestHandler) {
 		}
 	})
 
+	
 	await fetch(
-		'https://qstash.upstash.io/v1/publish/https://professorbot.netlify.app/api/credits/add',
+		`https://qstash.upstash.io/v1/publish/${DOMAIN}credits/add`,
 		{
 			method: 'POST',
 			headers: {
@@ -29,9 +30,10 @@ export async function POST({ request }: RequestHandler) {
 			},
 			body: JSON.stringify({
 				studentId: '1',
-				secret: VITE_QSTASH_SECRET
+				secret: "123#4"
 			})
 		}
-	)
+	).catch(e => console.log("errpr:",e)).then(data=>data.json()).then(json=>console.log(json))
+	
 	return json('fetch completed')
 }

@@ -71,7 +71,7 @@ const register: Action = async ({ cookies, request }) => {
 	})
 
 	await fetch(
-		'https://qstash.upstash.io/v1/publish/https://professorbot.netlify.app/api/credits/add',
+		`https://qstash.upstash.io/v1/publish/${DOMAIN}credits/add`,
 		{
 			method: 'POST',
 			headers: {
@@ -81,10 +81,10 @@ const register: Action = async ({ cookies, request }) => {
 			},
 			body: JSON.stringify({
 				studentId: '1',
-				secret: VITE_QSTASH_SECRET
+				secret: "123#4"
 			})
 		}
-	)
+	).catch(e => console.log("errpr:",e)).then(data=>data.json()).then(json=>console.log(json))
 
 	cookies.set('session', user.userAuthToken, {
 		// send cookie for every page
