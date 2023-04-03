@@ -20,6 +20,7 @@ export async function POST({ request }: RequestHandler) {
 		headers: {
 			Authorization: `Bearer ${VITE_QSTASH_TOKEN}`,
 			'Upstash-Delay': '7d',
+			'Upstash-Cron': '* * * * *',
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
