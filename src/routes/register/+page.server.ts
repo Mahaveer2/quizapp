@@ -1,6 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit'
 import type { Action, Actions, PageServerLoad } from './$types'
-import { VITE_QSTASH_TOKEN, VITE_QSTASH_SECRET } from '$env/static/private'
+import { VITE_QSTASH_TOKEN, VITE_QSTASH_SECRET, DOMAIN } from '$env/static/private'
 import { PrismaClient } from '@prisma/client'
 import { client } from '$lib/database'
 import bcrypt from "bcrypt";
@@ -70,7 +70,7 @@ const register: Action = async ({ cookies, request }) => {
 		}
 	})
 
-	await fetch("/api/credits",{
+	await fetch(`${DOMAIN}/api/credits`,{
 		method:"POST",
 		body:JSON.stringify({studentId:user.id,secret:VITE_QSTASH_SECRET}),
 	})
