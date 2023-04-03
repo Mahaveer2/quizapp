@@ -27,4 +27,6 @@ export async function POST({ request }: RequestHandler) {
 			// Handle any errors here
 			console.log(error)
 		})
+
+		return json("added cronjob Submitted succesfully!")
 }
