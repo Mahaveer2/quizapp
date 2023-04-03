@@ -141,8 +141,10 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		})
 
 		if (!chatResponse.ok) {
+			console.log("niasdn[asidon")
 			const err = await chatResponse.json()
-			throw new Error(err)
+			return json(err);
+			throw new Error("error:",err)
 		}
 
 		return new Response(chatResponse.body, {

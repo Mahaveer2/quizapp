@@ -43,16 +43,23 @@ function main() {
         var tom;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, prisma.admin.upsert({
-                        where: { email: "tom@gmail.com" },
-                        update: {},
-                        create: {
-                            email: 'tom@gmail.com',
-                            password: "admin"
-                        }
-                    })];
+                case 0: return [4 /*yield*/, prisma.admin.findUnique({ where: { email: "tom@gmail.com" } })];
                 case 1:
                     tom = _a.sent();
+                    if (!!tom) return [3 /*break*/, 3];
+                    return [4 /*yield*/, prisma.admin.create({
+                            data: {
+                                name: "Tom",
+                                email: "tom@gmail.com",
+                                password: "admin"
+                            }
+                        })];
+                case 2:
+                    _a.sent();
+                    console.log("%ccreated admin tom succesfully", "color:green");
+                    _a.label = 3;
+                case 3:
+                    console.log("Admin already exists!");
                     return [2 /*return*/];
             }
         });

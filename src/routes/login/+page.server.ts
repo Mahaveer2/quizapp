@@ -1,5 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit'
 import type { Action, Actions, PageServerLoad } from './$types'
+import bcrypt from "bcrypt";
 import { PrismaClient } from '@prisma/client'
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -13,7 +14,7 @@ const login: Action = async ({ cookies, request }) => {
 	const db = new PrismaClient()
 	const data = await request.formData()
 	const email = data.get('email')
-	const password = data.get('password')
+	const password:string = String(data.get('password'));
 
 	function validateEmail(email:string) {
 		const regex = /^[^\s@]+@torontoMU\.ca$/i
@@ -30,7 +31,8 @@ const login: Action = async ({ cookies, request }) => {
 		return fail(400, { credentials: true })
 	}
 
-	if (user.password != password) {
+	let comparedCorrect = await bcrypt.compare(password, user.password)
+	if (!comparedCorrect) {
 		return fail(400, { credentials: true })
 	}
 

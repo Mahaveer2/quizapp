@@ -1,7 +1,9 @@
 import { fail, redirect } from '@sveltejs/kit'
 import type { Action, Actions, PageServerLoad } from './$types'
+import { VITE_QSTASH_TOKEN, VITE_QSTASH_SECRET } from '$env/static/private'
 import { PrismaClient } from '@prisma/client'
 import { client } from '$lib/database'
+import bcrypt from "bcrypt";
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// redirect user if logged in
@@ -41,15 +43,36 @@ const register: Action = async ({ cookies, request }) => {
 		return fail(400, { invalid: true })
 	}
 
+	const hashPassword = async (password:string, saltRounds = 10) => {
+		try {
+			// Generate a salt
+			const salt = await bcrypt.genSalt(saltRounds)
+	
+			// Hash password
+			return await bcrypt.hash(password, salt)
+		} catch (error) {
+			console.log(error)
+		}
+	
+		// Return null if error
+		return null
+	}
+
 	const user = await client.student.create({
 		data: {
 			email: email,
 			firstName: fname,
 			lastName: lname,
-			password: password,
+			password: await hashPassword(password),
 			userAuthToken: crypto.randomUUID(),
+			credits:1,
 			verified:true
 		}
+	})
+
+	await fetch("/api/credits",{
+		method:"POST",
+		body:JSON.stringify({studentId:user.id,secret:VITE_QSTASH_SECRET}),
 	})
 
 	cookies.set('session', user.userAuthToken, {

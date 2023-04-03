@@ -1,10 +1,14 @@
 {
 	"name": "ProfessorBot",
-	"author": {"email": "amrani.mahaveer223@gmail.com","name": "Mahaveer","url": "https://mahaveeramrani.vercel.app/"},
+	"author": {
+		"email": "amrani.mahaveer223@gmail.com",
+		"name": "Mahaveer",
+		"url": "https://mahaveeramrani.vercel.app/"
+	},
 	"version": "0.0.1",
 	"prisma": {
-    "seed": "tsc prisma/seed.ts"
-  },
+		"seed": "tsc prisma/seed.ts"
+	},
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
@@ -50,6 +54,8 @@
 	"dependencies": {
 		"@prisma/client": "^4.9.0",
 		"@sveltejs/adapter-netlify": "^2.0.6",
+		"bcrypt": "^5.1.0",
+		"bcryptjs": "^2.4.3",
 		"fuse.js": "^6.6.2",
 		"gpt3-tokenizer": "^1.1.5",
 		"lodash": "^4.17.21",

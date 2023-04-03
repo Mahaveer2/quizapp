@@ -12,5 +12,8 @@ async function main(){
         password:"admin"
       }
     })
+    console.log("%ccreated admin tom succesfully","color:green")
   }
+
+  console.log("Admin already exists!")
 }
